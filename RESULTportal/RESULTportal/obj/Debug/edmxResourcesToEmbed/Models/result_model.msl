@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ResultDBModelStoreContainer" CdmEntityContainer="ResultDBEntities">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="ResultDBModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="adminID" ColumnName="adminID" />
+          <ScalarProperty Name="pssd" ColumnName="pssd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="result_uploader">
+      <EntityTypeMapping TypeName="ResultDBModel.result_uploader">
+        <MappingFragment StoreEntitySet="result_uploader">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UID" ColumnName="UID" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="branch" ColumnName="branch" />
+          <ScalarProperty Name="pssd" ColumnName="pssd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="ResultDBModel.Student">
+        <MappingFragment StoreEntitySet="Student">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SID" ColumnName="SID" />
+          <ScalarProperty Name="sname" ColumnName="sname" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="semister" ColumnName="semister" />
+          <ScalarProperty Name="Branch" ColumnName="Branch" />
+          <ScalarProperty Name="pointer" ColumnName="pointer" />
+          <ScalarProperty Name="pssd" ColumnName="pssd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

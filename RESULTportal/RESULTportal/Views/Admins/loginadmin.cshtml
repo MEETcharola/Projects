@@ -1,0 +1,52 @@
+﻿@model RESULTportal.Models.Admin
+
+@{
+    ViewBag.Title = "loginadmin";
+}
+
+<h2>Admin Login</h2>
+
+@using (Html.BeginForm("loginadmin", "Admins", FormMethod.Post))
+{
+    <fieldset>
+        <legend>login as a Admin</legend>
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @if (@ViewBag.Message != null)
+        {
+            <div style="text-align:center">
+                @ViewBag.Message
+            </div>
+        }
+        <table>
+            <tr>
+                <td>AdminID:</td>
+                <td>@Html.TextBoxFor(a => a.adminID)</td>
+                <td>@Html.ValidationMessageFor(a => a.adminID)</td>
+            </tr>
+            <tr>
+                <td>
+                    Password
+                </td>
+                <td>
+                    @Html.PasswordFor(a => a.pssd)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(a => a.pssd)
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Login" />
+                </td>
+                <td></td>
+
+            </tr>
+        </table>
+        login as student:-@Html.ActionLink("Login Here", "studentlogin", "Students")
+        <br>
+        login as result_uploader:- @Html.ActionLink("Login Here", "uploaderlogin", "result_uploader")
+    </fieldset>
+}

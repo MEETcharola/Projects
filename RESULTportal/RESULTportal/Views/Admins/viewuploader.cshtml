@@ -1,0 +1,53 @@
+﻿@model IEnumerable<RESULTportal.Models.result_uploader>
+
+@{
+    ViewBag.Title = "viewuploader";
+}
+
+<h2></h2>
+
+<p>
+    @Html.ActionLink("Create New", "createuploader")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.branch)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pssd)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.branch)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pssd)
+            </td>
+            <td>
+                |
+                @Html.ActionLink("Delete", "deleteuploader", new { id = item.Id })
+            </td>
+        </tr>
+    }
+    @Html.ActionLink("go to index page", "index")
+
+</table>
+@Html.ActionLink("log out", "logout")

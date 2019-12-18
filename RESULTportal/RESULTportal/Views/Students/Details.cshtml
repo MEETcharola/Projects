@@ -1,0 +1,73 @@
+﻿@model RESULTportal.Models.Student
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.semister)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.semister)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Branch)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Branch)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pointer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pointer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pssd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pssd)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("log out", "logout")
+</p>
