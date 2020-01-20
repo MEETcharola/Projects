@@ -1,0 +1,71 @@
+﻿@model IEnumerable<OnlineTermWorkSubmission.Models.Student>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>viewstudent</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "createstudent")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.student_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.student_email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.student_address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.student_contact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.student_dob)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.student_password)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.student_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.student_email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.student_address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.student_contact)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.student_dob)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.student_password)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.student_id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.student_id }) |
+                @Html.ActionLink("Delete", "deletestudent", new { id=item.student_id })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

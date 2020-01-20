@@ -1,0 +1,52 @@
+﻿@model OnlineTermWorkSubmission.Models.Faculty
+
+@{
+    Layout = null;
+    ViewBag.Title = "loginfaculty";
+}
+@ViewBag.Parth
+    <h2>Faculty Login</h2>
+
+@using (Html.BeginForm("loginfaculty", "Faculty", FormMethod.Post))
+{
+    <fieldset>
+        <legend>login as a Faculty</legend>
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @if (@ViewBag.Message != null)
+        {
+            <div style="text-align:center">
+                @ViewBag.Message
+            </div>
+        }
+        <table>
+            <tr>
+                <td>Email:</td>
+                <td>@Html.TextBoxFor(model => model.faculty_email)</td>
+                <td>@Html.ValidationMessageFor(model => model.faculty_email)</td>
+            </tr>
+            <tr>
+                <td>
+                    Password:
+                </td>
+                <td>
+                    @Html.PasswordFor(model => model.faculty_password)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.faculty_password)
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Login" />
+                </td>
+                <td></td>
+
+            </tr>
+        </table>
+        login as student:-@Html.ActionLink("Login Here", "studentlogin", "Student")
+        <br>
+    </fieldset>
+}

@@ -58,8 +58,8 @@ namespace OnlineTermWorkSubmission.Models
         [Required]
         public string student_address { get; set; }
         [Required]
-
-        public int student_contact { get; set; }
+        [DataType(DataType.PhoneNumber)]
+        public string student_contact { get; set; }
         [Required]
         public DateTime student_dob { get; set; }
         [Required]
@@ -80,7 +80,8 @@ namespace OnlineTermWorkSubmission.Models
         public string faculty_email { get; set; }
         [Required]
 
-        public int faculty_contact { get; set; }
+        [DataType(DataType.PhoneNumber)]
+        public string faculty_contact { get; set; }
         [Required]
         public DateTime faculty_dob { get; set; }
         [Required]

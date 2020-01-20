@@ -1,0 +1,74 @@
+﻿@model OnlineTermWorkSubmission.Models.Student
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Student</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.student_name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.student_name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.student_email)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.student_email)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.student_address)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.student_address)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.student_contact)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.student_contact)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.student_dob)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.student_dob)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.student_password)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.student_password)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+       
+        @Html.ActionLink("log out", "logout")
+    </p>
+</body>
+</html>
