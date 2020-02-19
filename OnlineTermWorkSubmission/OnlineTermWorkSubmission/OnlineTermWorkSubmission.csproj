@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FacultiesController.cs" />
     <Compile Include="Controllers\FacultyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -186,6 +187,10 @@
     <Compile Include="Migrations\202001201322077_init2.cs" />
     <Compile Include="Migrations\202001201322077_init2.Designer.cs">
       <DependentUpon>202001201322077_init2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002191418138_init0.cs" />
+    <Compile Include="Migrations\202002191418138_init0.Designer.cs">
+      <DependentUpon>202002191418138_init0.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -257,9 +262,18 @@
     <Content Include="Views\Faculty\index.cshtml" />
     <Content Include="Views\Student\Details.cshtml" />
     <Content Include="Views\Student\studentlogin.cshtml" />
+    <Content Include="Views\Faculty\createsubject.cshtml" />
+    <Content Include="Views\Faculty\deletesubject.cshtml" />
+    <Content Include="Views\Faculty\viewsubject.cshtml" />
+    <Content Include="Views\Faculties\Create.cshtml" />
+    <Content Include="Views\Faculties\Delete.cshtml" />
+    <Content Include="Views\Faculties\Details.cshtml" />
+    <Content Include="Views\Faculties\Edit.cshtml" />
+    <Content Include="Views\Faculties\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -283,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001201322077_init2.resx">
       <DependentUpon>202001201322077_init2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002191418138_init0.resx">
+      <DependentUpon>202002191418138_init0.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<OnlineTermWorkSubmission.Models.Subject>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>viewsubject</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "createsubject")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.subject_name)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.subject_name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.subject_id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.subject_id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.subject_id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

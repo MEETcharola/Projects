@@ -5,7 +5,7 @@
     ViewBag.Title = "loginfaculty";
 }
 @ViewBag.Parth
-    <h2>Faculty Login</h2>
+<h2>Faculty Login</h2>
 
 @using (Html.BeginForm("loginfaculty", "Faculty", FormMethod.Post))
 {
@@ -49,4 +49,7 @@
         login as student:-@Html.ActionLink("Login Here", "studentlogin", "Student")
         <br>
     </fieldset>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }

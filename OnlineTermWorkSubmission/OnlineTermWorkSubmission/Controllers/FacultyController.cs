@@ -137,6 +137,78 @@ namespace OnlineTermWorkSubmission.Controllers
             return RedirectToAction("loginfaculty");
         }
 
+        public ActionResult createsubject()
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("loginfaculty");
+            }
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult createsubject(Subject subject, Faculty adm)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("loginfaculty");
+            }
+            if (ModelState.IsValid)
+            {
+                var result = db.Faculties.Where(a => a.faculty_email == adm.faculty_email && a.faculty_password == adm.faculty_password).FirstOrDefault();
+                
+                db.Subjects.Add(subject);
+                db.SaveChanges();
+                return RedirectToAction("viewsubject");
+            }
+
+            return View(subject);
+        }
+
+        public ActionResult deletesubject(int? id)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("loginfaculty");
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Subject subject = db.Subjects.Find(id);
+            if (subject == null)
+            {
+                return HttpNotFound();
+            }
+            return View(subject);
+        }
+
+        // POST: Students/Delete/5
+        [HttpPost, ActionName("deletesubject")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Deleteconformedsubject(int id)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("loginfaculty");
+            }
+            Subject subject = db.Subjects.Find(id);
+            db.Subjects.Remove(subject);
+            db.SaveChanges();
+            return RedirectToAction("viewsubject");
+        }
+
+        public ActionResult viewsubject()
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("loginfaculty");
+            }
+            return View(db.Subjects.ToList());
+        }
+
 
         protected override void Dispose(bool disposing)
         {

@@ -19,56 +19,59 @@
             <dt>
                 @Html.DisplayNameFor(model => model.student_name)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.student_name)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.student_email)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.student_email)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.student_address)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.student_address)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.student_contact)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.student_contact)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.student_dob)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.student_dob)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.student_password)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.student_password)
             </dd>
-    
+
         </dl>
     </div>
     <p>
-       
+
         @Html.ActionLink("log out", "logout")
     </p>
 </body>
 </html>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

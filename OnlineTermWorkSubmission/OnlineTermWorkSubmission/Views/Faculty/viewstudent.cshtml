@@ -37,35 +37,39 @@
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.student_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.student_email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.student_address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.student_contact)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.student_dob)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.student_password)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.student_id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.student_id }) |
-                @Html.ActionLink("Delete", "deletestudent", new { id=item.student_id })
-            </td>
-        </tr>
-    }
-    
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.student_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.student_email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.student_address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.student_contact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.student_dob)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.student_password)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.student_id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.student_id }) |
+                    @Html.ActionLink("Delete", "deletestudent", new { id = item.student_id })
+                </td>
+            </tr>
+        }
+
     </table>
 </body>
 </html>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
