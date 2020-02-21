@@ -149,17 +149,19 @@ namespace OnlineTermWorkSubmission.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult createsubject(Subject subject, Faculty adm)
+        public ActionResult createsubject(Subject subject, int? id)
         {
+            
             if (Session["facultyID"] == null)
             {
                 return RedirectToAction("loginfaculty");
             }
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && subject!=null)
             {
-                var result = db.Faculties.Where(a => a.faculty_email == adm.faculty_email && a.faculty_password == adm.faculty_password).FirstOrDefault();
-                
+                //var result = db.Faculties.Select(a => a.faculty_id).FirstOrDefault();
+                Faculty result = db.Faculties.Find(id);
                 db.Subjects.Add(subject);
+                subject.Faculties.Add(result);
                 db.SaveChanges();
                 return RedirectToAction("viewsubject");
             }
