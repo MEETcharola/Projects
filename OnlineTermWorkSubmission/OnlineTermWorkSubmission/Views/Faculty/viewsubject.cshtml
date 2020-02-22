@@ -13,7 +13,7 @@
 </head>
 <body>
     <p>
-        @Html.ActionLink("Create New", "createsubject")
+        @Html.ActionLink("Create New", "createsubject", new { fid = ViewBag.id })
     </p>
     <table class="table">
         <tr>
@@ -30,9 +30,8 @@
                     @Html.DisplayFor(modelItem => item.subject_name)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.subject_id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.subject_id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.subject_id })
+                    @Html.ActionLink("Edit", "", new { id = item.subject_id }) |
+                    @Html.ActionLink("Delete", "deletesubject", new { subId = item.subject_id, fid = ViewBag.id })
                 </td>
             </tr>
         }
