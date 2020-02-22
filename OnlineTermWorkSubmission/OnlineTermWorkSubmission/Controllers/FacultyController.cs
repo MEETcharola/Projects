@@ -1,6 +1,7 @@
 ﻿using OnlineTermWorkSubmission.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -184,7 +185,7 @@ namespace OnlineTermWorkSubmission.Controllers
         // POST: Students/Delete/5
         [HttpPost, ActionName("deletesubject")]
         [ValidateAntiForgeryToken]
-        public ActionResult Deleteconformedsubject(int subId, int? fid)
+        public ActionResult Deleteconfirmedsubject(int subId, int? fid)
         {
             if (Session["facultyID"] == null)
             {
@@ -207,7 +208,50 @@ namespace OnlineTermWorkSubmission.Controllers
             return View(db.Subjects.Where(x => x.Faculties.Any(y => y.faculty_id == id)).ToList());
         }
 
+        // GET: Faculties/Edit/5
+        public ActionResult editsubject(int? subId, int? fid)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("loginfaculty");
+            }
+            if (subId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Subject subject = db.Subjects.Find(subId);
+            if (subject == null)
+            {
+                return HttpNotFound();
+            }
+            TempData["SubjectID"] = subId;
+            TempData.Keep();
+            ViewBag.id = fid;
+            return View(subject);
+        }
 
+        // POST: Faculties/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult editsubject([Bind(Include = "subject_name")] Subject subject, int? fid)
+        {
+            if (ModelState.IsValid)
+            {
+                int SubjectId = (int)TempData["SubjectID"];
+                var result = db.Subjects.Where(x => x.subject_id == SubjectId).FirstOrDefault();
+                if(result!=null)
+                {
+                    result.subject_name = subject.subject_name;
+                    db.Entry(result).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                ViewBag.id = fid;
+                return RedirectToAction("viewsubject", new { id = fid });
+            }
+            return View(subject);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -264,11 +264,7 @@
     <Content Include="Views\Faculty\createsubject.cshtml" />
     <Content Include="Views\Faculty\deletesubject.cshtml" />
     <Content Include="Views\Faculty\viewsubject.cshtml" />
-    <Content Include="Views\Faculties\Create.cshtml" />
-    <Content Include="Views\Faculties\Delete.cshtml" />
-    <Content Include="Views\Faculties\Details.cshtml" />
-    <Content Include="Views\Faculties\Edit.cshtml" />
-    <Content Include="Views\Faculties\Index.cshtml" />
+    <Content Include="Views\Faculty\editsubject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

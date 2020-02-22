@@ -14,6 +14,7 @@
 <body>
     <p>
         @Html.ActionLink("Create New", "createsubject", new { fid = ViewBag.id })
+        @Html.ActionLink("Main Menu", "Index", new { id = ViewBag.id })
     </p>
     <table class="table">
         <tr>
@@ -30,7 +31,7 @@
                     @Html.DisplayFor(modelItem => item.subject_name)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "", new { id = item.subject_id }) |
+                    @Html.ActionLink("Edit", "editsubject", new { subid = item.subject_id, fid = ViewBag.id }) |
                     @Html.ActionLink("Delete", "deletesubject", new { subId = item.subject_id, fid = ViewBag.id })
                 </td>
             </tr>
