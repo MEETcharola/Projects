@@ -1,7 +1,7 @@
 ﻿@model OnlineTermWorkSubmission.Models.Student
 
 @{
-    Layout = null;
+    ViewBag.Title = "createstudent";
 }
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>createstudent</title>
+    <title>CREATE A NEW STUDENT</title>
 </head>
 <body>
     @Scripts.Render("~/bundles/jquery")
@@ -21,7 +21,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Student</h4>
+            <h4>STUDENT</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">

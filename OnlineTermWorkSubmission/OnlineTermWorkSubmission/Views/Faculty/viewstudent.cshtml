@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<OnlineTermWorkSubmission.Models.Student>
 
 @{
-    Layout = null;
+    ViewBag.Title = "viewstudent";
 }
 
 <!DOCTYPE html>
@@ -9,12 +9,15 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>viewstudent</title>
+    <title>VIEW STUDENT</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "createstudent")
-    </p>
+    <div class="jumbotron">
+
+        @Html.ActionLink("CREATE NEW STUDENT", "createstudent")
+
+    </div>
+
     <table class="table">
         <tr>
             <th>

@@ -1,0 +1,66 @@
+﻿@model OnlineTermWorkSubmission.Models.Faculty
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Faculty</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.faculty_name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.faculty_name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.faculty_email)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.faculty_email)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.faculty_contact)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.faculty_contact)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.faculty_dob)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.faculty_dob)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.faculty_password)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.faculty_password)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.faculty_id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
