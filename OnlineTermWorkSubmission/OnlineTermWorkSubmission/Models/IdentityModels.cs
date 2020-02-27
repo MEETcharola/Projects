@@ -50,26 +50,19 @@ namespace OnlineTermWorkSubmission.Models
     public class Student
     {
         [Key]
-        [Display(Name = "Id")]
         public int student_id { get; set; }
         [Required]
-        [Display(Name = "Name")]
         public string student_name { get; set; }
         [Required]
-        [Display(Name = "Email Id")]
         public string student_email { get; set; }
         [Required]
-        [Display(Name = "Address")]
         public string student_address { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber)]
-        [Display(Name = "Your Phone")]
         public string student_contact { get; set; }
         [Required]
-        [Display(Name = "Date Of Birth")]
         public DateTime student_dob { get; set; }
         [Required]
-        [Display(Name = "Password")]
         public string student_password { get; set; }
 
         public virtual ICollection<Subject> Subjects { get; set; }
@@ -80,23 +73,18 @@ namespace OnlineTermWorkSubmission.Models
     public class Faculty
     {
         [Key]
-        [Display(Name = "Id")]
         public int faculty_id { get; set; }
         [Required]
-        [Display(Name = "Name")]
         public string faculty_name { get; set; }
         [Required]
-        [Display(Name = "Email Id")]
         public string faculty_email { get; set; }
         [Required]
-        [Display(Name = "Your Phone")]
+
         [DataType(DataType.PhoneNumber)]
         public string faculty_contact { get; set; }
         [Required]
-        [Display(Name = "Date Of Birth")]
         public DateTime faculty_dob { get; set; }
         [Required]
-        [Display(Name = "Password")]
         public string faculty_password { get; set; }
 
         public virtual ICollection<Subject> Subjects { get; set; }
@@ -106,10 +94,8 @@ namespace OnlineTermWorkSubmission.Models
     public class Subject
     {
         [Key]
-        [Display(Name = "Id")]
         public int subject_id { get; set; }
         [Required]
-        [Display(Name = "Name")]
         public string subject_name { get; set; }
 
         public virtual ICollection<Faculty> Faculties { get; set; }
@@ -122,13 +108,10 @@ namespace OnlineTermWorkSubmission.Models
     public class Lab
     {
         [Key]
-        [Display(Name = "Id")]
         public int lab_id { get; set; }
         [Required]
-        [Display(Name = "Lab No.")]
         public int lab_no { get; set; }
         [Required]
-        [Display(Name = "Date")]
         public DateTime lab_startdate { get; set; }
 
 
@@ -143,10 +126,8 @@ namespace OnlineTermWorkSubmission.Models
     public class Assignment
     {
         [Key]
-        [Display(Name = "Id")]
         public int assignment_id { get; set; }
         [Required]
-        [Display(Name = "Description")]
         public string assignment_text { get; set; }
 
 

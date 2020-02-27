@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<OnlineTermWorkSubmission.Models.Subject>
 
 @{
-  ViewBag.Title = "viewsubject";
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -9,15 +9,13 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>VIEW SUBJECT</title>
+    <title>viewsubject</title>
 </head>
 <body>
-    <div class="jumbotron">
-
-        @Html.ActionLink("CREATE NEW SUBJECT", "createsubject", new { fid = ViewBag.id }) |
-		@Html.ActionLink("MAIN MENU", "Index", new { id = ViewBag.id })
-    </div>
-
+    <p>
+        @Html.ActionLink("Create New", "createsubject", new { fid = ViewBag.id })
+        @Html.ActionLink("Main Menu", "Index", new { id = ViewBag.id })
+    </p>
     <table class="table">
         <tr>
             <th>
@@ -34,8 +32,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "editsubject", new { subid = item.subject_id, fid = ViewBag.id }) |
-                    @Html.ActionLink("Delete", "deletesubject", new { subId = item.subject_id, fid = ViewBag.id }) |
-                    @Html.ActionLink("Labs", "viewlabs", new { subId = item.subject_id , fid = ViewBag.id })
+                    @Html.ActionLink("Delete", "deletesubject", new { subId = item.subject_id, fid = ViewBag.id })
                 </td>
             </tr>
         }
