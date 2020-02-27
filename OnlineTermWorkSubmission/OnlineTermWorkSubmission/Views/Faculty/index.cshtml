@@ -1,15 +1,24 @@
 ﻿@model OnlineTermWorkSubmission.Models.Faculty
 
 @{
-    Layout = null;
+    ViewBag.Title = "index";
 }
 
+<div class="jumbotron">
+    <h3>FACULTY INDEX</h3>
 
-@Html.ActionLink("view student data", "viewstudent") |
+</div>
 
-@Html.ActionLink("log out", "logout") |
+<div>
+    @Html.ActionLink("view student data", "ViewStudent") |
 
-@Html.ActionLink("view subject", "viewsubject", new { id = ViewBag.id})
+    @Html.ActionLink("log out", "Logout") |
+
+    @Html.ActionLink("view subject", "ViewSubject", new { id = ViewBag.id })
+
+</div>
+
+
 
 
 

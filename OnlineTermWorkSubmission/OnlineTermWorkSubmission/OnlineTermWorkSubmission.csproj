@@ -254,17 +254,23 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Faculty\createstudent.cshtml" />
-    <Content Include="Views\Faculty\deletestudent.cshtml" />
-    <Content Include="Views\Faculty\viewstudent.cshtml" />
-    <Content Include="Views\Faculty\loginfaculty.cshtml" />
-    <Content Include="Views\Faculty\index.cshtml" />
+    <Content Include="Views\Faculty\CreateStudent.cshtml" />
+    <Content Include="Views\Faculty\DeleteStudent.cshtml" />
+    <Content Include="Views\Faculty\ViewStudent.cshtml" />
+    <Content Include="Views\Faculty\LoginFaculty.cshtml" />
+    <Content Include="Views\Faculty\Index.cshtml" />
     <Content Include="Views\Student\Details.cshtml" />
-    <Content Include="Views\Student\studentlogin.cshtml" />
-    <Content Include="Views\Faculty\createsubject.cshtml" />
-    <Content Include="Views\Faculty\deletesubject.cshtml" />
-    <Content Include="Views\Faculty\viewsubject.cshtml" />
-    <Content Include="Views\Faculty\editsubject.cshtml" />
+    <Content Include="Views\Student\StudentLogin.cshtml" />
+    <Content Include="Views\Faculty\CreateSubject.cshtml" />
+    <Content Include="Views\Faculty\DeleteSubject.cshtml" />
+    <Content Include="Views\Faculty\ViewSubject.cshtml" />
+    <Content Include="Views\Faculty\EditSubject.cshtml" />
+    <Content Include="Views\Faculty\ViewLabs.cshtml" />
+    <Content Include="Views\Faculty\CreateLabs.cshtml" />
+    <Content Include="Views\Faculty\EditLabs.cshtml" />
+    <Content Include="Views\Faculty\DeleteLabs.cshtml" />
+    <Content Include="Views\Faculty\ViewAssignments.cshtml" />
+    <Content Include="Views\Faculty\CreateAssignments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
