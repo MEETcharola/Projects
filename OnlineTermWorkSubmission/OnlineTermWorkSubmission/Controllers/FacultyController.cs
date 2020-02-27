@@ -263,6 +263,7 @@ namespace OnlineTermWorkSubmission.Controllers
             }
             ViewBag.id = fid;
             ViewBag.sid = subId;
+            
             return View();
         }
 
@@ -390,12 +391,13 @@ namespace OnlineTermWorkSubmission.Controllers
             ViewBag.id = fid;
             ViewBag.sid = subId;
             ViewBag.lid = labId;
+         
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateAssigments(Assignment assignment, int? labId, int? subId, int? fid)
+        public ActionResult CreateAssignments(Assignment assignment, int? labId, int? subId, int? fid)
         {
             if (Session["facultyID"] == null)
             {
@@ -411,6 +413,7 @@ namespace OnlineTermWorkSubmission.Controllers
             ViewBag.id = fid;
             ViewBag.sid = subId;
             ViewBag.lid = labId;
+           
             return View(assignment);
         }
 
@@ -425,6 +428,57 @@ namespace OnlineTermWorkSubmission.Controllers
             ViewBag.sid = sid;
             ViewBag.lid = lid;
             return View(db.Assignments.Where(x => x.lab_id == lid).ToList());
+        }
+
+        public ActionResult EditAssignments(int? aid,int? labId, int? subId, int? fid)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            if (labId == null)
+            {
+               // ViewBag.Extra = "null labId";  for debug
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Assignment assignment = db.Assignments.Find(aid);
+            if (assignment == null)
+            {
+               // ViewBag.Extra = "null assignment";  for debug
+                return HttpNotFound();
+            }
+            TempData["LabID"] = labId;
+            TempData.Keep();
+            TempData["aid"] = aid;
+            ViewBag.id = fid;
+            ViewBag.sid = subId;
+            return View(assignment);
+        }
+
+        // POST: Faculties/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAssignments([Bind(Include = "assignment_text")] Assignment assignment,int? lid, int? subId, int? fid)
+        {
+            if (ModelState.IsValid)
+            {
+                int aid = (int)TempData["aid"];
+                var result = db.Assignments.Where(x => x.assignment_id == aid).FirstOrDefault();
+                if (result != null)
+                {
+                    result.assignment_text = assignment.assignment_text;
+                    
+                    db.Entry(result).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                ViewBag.id = fid;
+                ViewBag.sid = subId;
+                ViewBag.lid = lid;
+                return RedirectToAction("ViewAssignment", new { lid = lid,sid = subId, id = fid });
+            }
+            return View(assignment);
         }
 
 

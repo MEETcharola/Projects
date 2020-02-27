@@ -1,7 +1,7 @@
 ﻿@model OnlineTermWorkSubmission.Models.Subject
 
 @{
-    Layout = null;
+    
 }
 
 <!DOCTYPE html>
@@ -21,7 +21,7 @@
         @Html.AntiForgeryToken()
         
         <div class="form-horizontal">
-            <h4>Subject</h4>
+            <h4>SUBJECT</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.subject_id)

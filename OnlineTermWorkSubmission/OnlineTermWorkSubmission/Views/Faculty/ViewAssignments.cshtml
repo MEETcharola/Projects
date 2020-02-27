@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<OnlineTermWorkSubmission.Models.Assignment>
 
 @{
-    Layout = null;
+    
 }
 
 <!DOCTYPE html>
@@ -12,9 +12,13 @@
     <title>viewassignments</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "CreateAssignments", new { labId = ViewBag.lid, subId = ViewBag.sid, fid = ViewBag.id })
-    </p>
+    <div class="jumbotron">
+
+        @Html.ActionLink("CREATE NEW ASSIGNMENT", "CreateAssignments", new { labId = ViewBag.lid, subId = ViewBag.sid, fid = ViewBag.id }) | 
+        @Html.ActionLink("Back To Labs", "ViewLabs", new {sid = ViewBag.sid ,id = ViewBag.id })
+
+    </div>
+    
     <table class="table">
         <tr>
             <th>
@@ -25,22 +29,23 @@
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Labs.lab_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.assignment_text)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.assignment_id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.assignment_id })
-            </td>
-        </tr>
-    }
-    
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Labs.lab_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.assignment_text)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditAssignments", new { id = item.assignment_id, labId = ViewBag.lid, subId = ViewBag.sid, fid = ViewBag.id }) |
+                    @Html.ActionLink("Delete", "DeleteAssignments", new { id = item.assignment_id, labId = ViewBag.lid, subId = ViewBag.sid, fid = ViewBag.id })
+                </td>
+            </tr>
+        }
+
     </table>
 </body>
 </html>

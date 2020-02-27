@@ -12,10 +12,13 @@
     <title>viewlabs</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "CreateLabs", new { subId = ViewBag.sid, fid = ViewBag.id }) |
+    <div class="jumbotron">
+
+        @Html.ActionLink("CREATE NEW LABS", "CreateLabs", new { subId = ViewBag.sid, fid = ViewBag.id }) |
         @Html.ActionLink("Back To Subjects", "ViewSubject", new { id = ViewBag.id })
-    </p>
+
+    </div>
+
     <table class="table">
         <tr>
             <th>
@@ -29,26 +32,29 @@
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subjects.subject_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.lab_no)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.lab_startdate)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EditLabs", new { labId = item.lab_id, subId = ViewBag.sid, fid = ViewBag.id }) |
-                @Html.ActionLink("Delete", "DeleteLabs", new { labId = item.lab_id, subId = ViewBag.sid, fid = ViewBag.id }) |
-                @Html.ActionLink("Assignments", "ViewAssignments", new { lid = item.lab_id, sid = ViewBag.sid, id = ViewBag.id })
-            </td>
-        </tr>
-    }
-    
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subjects.subject_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lab_no)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lab_startdate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditLabs", new { labId = item.lab_id, subId = ViewBag.sid, fid = ViewBag.id }) |
+                    @Html.ActionLink("Delete", "DeleteLabs", new { labId = item.lab_id, subId = ViewBag.sid, fid = ViewBag.id }) |
+                    @Html.ActionLink("Assignments", "ViewAssignments", new { lid = item.lab_id, sid = ViewBag.sid, id = ViewBag.id })
+                </td>
+            </tr>
+        }
+
     </table>
+
+   
 </body>
 </html>
