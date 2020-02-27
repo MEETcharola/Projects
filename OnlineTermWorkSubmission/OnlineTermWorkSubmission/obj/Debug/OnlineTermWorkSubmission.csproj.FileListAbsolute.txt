@@ -205,7 +205,6 @@ D:\GitHubProjects\Projects\OnlineTermWorkSubmission\OnlineTermWorkSubmission\bin
 D:\GitHubProjects\Projects\OnlineTermWorkSubmission\OnlineTermWorkSubmission\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\GitHubProjects\Projects\OnlineTermWorkSubmission\OnlineTermWorkSubmission\bin\Microsoft.Owin.Security.OAuth.xml
 D:\GitHubProjects\Projects\OnlineTermWorkSubmission\OnlineTermWorkSubmission\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\GitHubProjects\Projects\OnlineTermWorkSubmission\OnlineTermWorkSubmission\obj\Debug\OnlineTermWorkSubmission.csprojAssemblyReference.cache
 D:\GitHubProjects\Projects\OnlineTermWorkSubmission\OnlineTermWorkSubmission\obj\Debug\OnlineTermWorkSubmission.Migrations.init.resources
 D:\GitHubProjects\Projects\OnlineTermWorkSubmission\OnlineTermWorkSubmission\obj\Debug\OnlineTermWorkSubmission.csproj.GenerateResource.cache
 D:\GitHubProjects\Projects\OnlineTermWorkSubmission\OnlineTermWorkSubmission\obj\Debug\OnlineTermWorkSubmission.csproj.CopyComplete

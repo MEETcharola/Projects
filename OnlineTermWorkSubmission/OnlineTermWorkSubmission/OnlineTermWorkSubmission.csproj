@@ -265,6 +265,9 @@
     <Content Include="Views\Faculty\deletesubject.cshtml" />
     <Content Include="Views\Faculty\viewsubject.cshtml" />
     <Content Include="Views\Faculty\editsubject.cshtml" />
+    <Content Include="Views\Faculty\viewlabs.cshtml" />
+    <Content Include="Views\Faculty\createlabs.cshtml" />
+    <Content Include="Views\Faculty\editlabs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
