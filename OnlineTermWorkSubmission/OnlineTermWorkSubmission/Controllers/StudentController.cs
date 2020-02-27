@@ -17,22 +17,22 @@ namespace OnlineTermWorkSubmission.Controllers
             return View();
         }
 
-        public ActionResult studentlogin()
+        public ActionResult StudentLogin()
         {
 
             return View();
         }
 
-        public ActionResult logout()
+        public ActionResult Logout()
         {
             Session["UID"] = null;
             Session["UserID"] = null;
             Session["adminID"] = null;
-            return RedirectToAction("studentlogin");
+            return RedirectToAction("StudentLogin");
         }
 
         [HttpPost]
-        public ActionResult studentlogin(Student stud)
+        public ActionResult StudentLogin(Student stud)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace OnlineTermWorkSubmission.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return RedirectToAction("studentlogin");
+                return RedirectToAction("StudentLogin");
             }
 
             if (Session["ID"] == null)

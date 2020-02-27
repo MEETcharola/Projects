@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            @using (Html.BeginForm("loginfaculty", "Faculty", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("LoginFaculty", "Faculty", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 <fieldset>
 
@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div>
-                     @Html.ActionLink("Login As a Student", "studentlogin", "Student")
+                     @Html.ActionLink("Login As a Student", "StudentLogin", "Student")
                 </div>
                 <br>
             }

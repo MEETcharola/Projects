@@ -13,7 +13,8 @@
 </head>
 <body>
     <p>
-        @Html.ActionLink("Create New", "createlabs", new { subId = ViewBag.sid, fid = ViewBag.id })
+        @Html.ActionLink("Create New", "CreateLabs", new { subId = ViewBag.sid, fid = ViewBag.id }) |
+        @Html.ActionLink("Back To Subjects", "ViewSubject", new { id = ViewBag.id })
     </p>
     <table class="table">
         <tr>
@@ -41,8 +42,9 @@
                 @Html.DisplayFor(modelItem => item.lab_startdate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "editlabs", new { labId=item.lab_id, subId=ViewBag.sid, fid=ViewBag.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.lab_id })
+                @Html.ActionLink("Edit", "EditLabs", new { labId = item.lab_id, subId = ViewBag.sid, fid = ViewBag.id }) |
+                @Html.ActionLink("Delete", "DeleteLabs", new { labId = item.lab_id, subId = ViewBag.sid, fid = ViewBag.id }) |
+                @Html.ActionLink("Assignments", "ViewAssignments", new { lid = item.lab_id, sid = ViewBag.sid, id = ViewBag.id })
             </td>
         </tr>
     }
