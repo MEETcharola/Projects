@@ -55,8 +55,8 @@ namespace OnlineTermWorkSubmission.Controllers
             return View(student);
         }
 
-     
-        
+
+
         // GET: Students/Delete/5
         public ActionResult deletestudent(int? id)
         {
@@ -91,7 +91,7 @@ namespace OnlineTermWorkSubmission.Controllers
             return RedirectToAction("viewstudent");
         }
 
-       
+
         // GET: Admins
         public ActionResult viewstudent()
         {
@@ -102,7 +102,7 @@ namespace OnlineTermWorkSubmission.Controllers
             return View(db.Students.ToList());
         }
 
-         // GET: Admins
+        // GET: Admins
         public ActionResult loginfaculty()
         {
 
@@ -117,7 +117,7 @@ namespace OnlineTermWorkSubmission.Controllers
             {
                 Session["facultyID"] = result.faculty_email;
                 Session["ID"] = result.faculty_id;
-                return RedirectToAction("index", new { id = result.faculty_id});
+                return RedirectToAction("index", new { id = result.faculty_id });
             }
             else
             {
@@ -134,12 +134,13 @@ namespace OnlineTermWorkSubmission.Controllers
             return RedirectToAction("loginfaculty");
         }
 
-        public ActionResult createsubject()
+        public ActionResult createsubject(int? fid)
         {
             if (Session["facultyID"] == null)
             {
                 return RedirectToAction("loginfaculty");
             }
+            ViewBag.id = fid;
             return View();
         }
 
@@ -152,14 +153,15 @@ namespace OnlineTermWorkSubmission.Controllers
             {
                 return RedirectToAction("loginfaculty");
             }
-            if (ModelState.IsValid && subject!=null)
+            if (ModelState.IsValid && subject != null)
             {
-                
+
                 Faculty result = db.Faculties.Find(fid);
                 result.Subjects.Add(subject);
                 db.SaveChanges();
-                return RedirectToAction("viewsubject", new { id = fid});
+                return RedirectToAction("viewsubject", new { id = fid });
             }
+            ViewBag.id = fid;
             return View(subject);
         }
 
@@ -241,7 +243,7 @@ namespace OnlineTermWorkSubmission.Controllers
             {
                 int SubjectId = (int)TempData["SubjectID"];
                 var result = db.Subjects.Where(x => x.subject_id == SubjectId).FirstOrDefault();
-                if(result!=null)
+                if (result != null)
                 {
                     result.subject_name = subject.subject_name;
                     db.Entry(result).State = EntityState.Modified;
