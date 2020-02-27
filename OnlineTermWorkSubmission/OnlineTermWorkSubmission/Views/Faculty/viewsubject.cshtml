@@ -34,7 +34,8 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "editsubject", new { subid = item.subject_id, fid = ViewBag.id }) |
-                    @Html.ActionLink("Delete", "deletesubject", new { subId = item.subject_id, fid = ViewBag.id })
+                    @Html.ActionLink("Delete", "deletesubject", new { subId = item.subject_id, fid = ViewBag.id }) |
+                    @Html.ActionLink("Labs", "viewlabs", new { subId = item.subject_id , fid = ViewBag.id })
                 </td>
             </tr>
         }

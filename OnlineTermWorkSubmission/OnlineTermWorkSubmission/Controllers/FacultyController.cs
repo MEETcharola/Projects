@@ -254,6 +254,98 @@ namespace OnlineTermWorkSubmission.Controllers
             }
             return View(subject);
         }
+
+        public ActionResult createlabs(int? subId, int? fid)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("loginfaculty");
+            }
+            ViewBag.id = fid;
+            ViewBag.sid = subId;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult createlabs(Lab lab, int? subId, int? fid)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("loginfaculty");
+            }
+            if (ModelState.IsValid && lab != null)
+            {
+               
+                //Faculty result = db.Faculties.Find(fid);
+                Subject result2 = db.Subjects.Find(subId);
+                result2.Labs.Add(lab);
+                db.SaveChanges();
+                return RedirectToAction("viewlabs", new { sid = subId, id = fid });
+            }
+            ViewBag.id = fid;
+            ViewBag.sid = subId;
+            return View(lab);
+        }
+
+        public ActionResult viewlabs(int? subId, int? id)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("loginfaculty");
+            }
+            ViewBag.id = id;
+            ViewBag.sid = subId;
+            return View(db.Labs.Where(x => x.subject_id == subId).ToList());
+        }
+
+        public ActionResult editlabs(int? labId, int? subId, int? fid)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("loginfaculty");
+            }
+            if (subId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Subject subject = db.Subjects.Find(subId);
+            Lab lab = db.Labs.Find(labId);
+            if (lab == null)
+            {
+                return HttpNotFound();
+            }
+            TempData["LabID"] = labId;
+            TempData.Keep();
+            ViewBag.id = fid;
+            ViewBag.sid = subId;
+            return View(lab);
+        }
+
+        // POST: Faculties/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult editlabs([Bind(Include = "lab_no, lab_startdate")] Lab lab, int? subId, int? fid)
+        {
+            if (ModelState.IsValid)
+            {
+                int LabId = (int)TempData["LabID"];
+                var result = db.Labs.Where(x => x.lab_id == LabId).FirstOrDefault();
+                if (result != null)
+                {
+                    result.lab_no = lab.lab_no;
+                    result.lab_startdate = lab.lab_startdate;
+                    db.Entry(result).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                ViewBag.id = fid;
+                ViewBag.sid = subId;
+                return RedirectToAction("viewlabs", new { sid = subId, id = fid });
+            }
+            return View(lab);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
