@@ -255,6 +255,7 @@ namespace OnlineTermWorkSubmission.Controllers
             return View(subject);
         }
 
+        // LAB OPERATION
         public ActionResult createlabs(int? subId, int? fid)
         {
             if (Session["facultyID"] == null)
@@ -277,26 +278,26 @@ namespace OnlineTermWorkSubmission.Controllers
             if (ModelState.IsValid && lab != null)
             {
                
-                //Faculty result = db.Faculties.Find(fid);
+                Faculty result = db.Faculties.Find(fid);
                 Subject result2 = db.Subjects.Find(subId);
                 result2.Labs.Add(lab);
                 db.SaveChanges();
-                return RedirectToAction("viewlabs", new { sid = subId, id = fid });
+                return RedirectToAction("viewlabs", new { subId = subId, fid = fid });
             }
             ViewBag.id = fid;
             ViewBag.sid = subId;
             return View(lab);
         }
-
-        public ActionResult viewlabs(int? subId, int? id)
+       
+        public ActionResult viewlabs(int? subId, int? fid)
         {
             if (Session["facultyID"] == null)
             {
                 return RedirectToAction("loginfaculty");
             }
-            ViewBag.id = id;
+            ViewBag.id = fid;
             ViewBag.sid = subId;
-            return View(db.Labs.Where(x => x.subject_id == subId).ToList());
+            return View(db.Labs.Where(x => x.subject_id == subId ).ToList());
         }
 
         public ActionResult editlabs(int? labId, int? subId, int? fid)
