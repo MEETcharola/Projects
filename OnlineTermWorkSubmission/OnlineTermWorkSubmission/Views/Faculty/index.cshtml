@@ -1,7 +1,7 @@
 ﻿@model OnlineTermWorkSubmission.Models.Faculty
 
 @{
-    ViewBag.Title = "index";
+    ViewBag.Title = "Index";
 }
 
 <div class="jumbotron">
@@ -10,13 +10,13 @@
 </div>
 
 <div>
-    @Html.ActionLink("view student data", "ViewStudent")  |
+    @Html.ActionLink("View Students", "ViewStudent")  |
 
 
-    @Html.ActionLink("view subject", "ViewSubject", new { id = ViewBag.id })  |
+    @Html.ActionLink("View Subjects", "ViewSubject", new { id = ViewBag.id })  |
 
 
-    @Html.ActionLink("log out", "Logout") 
+    @Html.ActionLink("Logout", "Logout") 
 
 </div>
 

@@ -195,6 +195,10 @@
     <Compile Include="Migrations\202002280637245_init2802.Designer.cs">
       <DependentUpon>202002280637245_init2802.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002291416529_init290220.cs" />
+    <Compile Include="Migrations\202002291416529_init290220.Designer.cs">
+      <DependentUpon>202002291416529_init290220.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -258,9 +262,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Faculty\CreateStudent.cshtml" />
-    <Content Include="Views\Faculty\DeleteStudent.cshtml" />
-    <Content Include="Views\Faculty\ViewStudent.cshtml" />
     <Content Include="Views\Faculty\LoginFaculty.cshtml" />
     <Content Include="Views\Faculty\Index.cshtml" />
     <Content Include="Views\Student\Details.cshtml" />
@@ -277,6 +278,9 @@
     <Content Include="Views\Faculty\CreateAssignments.cshtml" />
     <Content Include="Views\Faculty\EditAssignments.cshtml" />
     <Content Include="Views\Faculty\DeleteAssignments.cshtml" />
+    <Content Include="Views\Faculty\ViewStudent.cshtml" />
+    <Content Include="Views\Faculty\CreateStudent.cshtml" />
+    <Content Include="Views\Faculty\DeleteStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -310,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002280637245_init2802.resx">
       <DependentUpon>202002280637245_init2802.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002291416529_init290220.resx">
+      <DependentUpon>202002291416529_init290220.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

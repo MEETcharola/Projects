@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<OnlineTermWorkSubmission.Models.Student>
 
 @{
-    ViewBag.Title = "viewstudent";
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -9,71 +9,87 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>VIEW STUDENT</title>
+    <title>ViewStudent</title>
 </head>
 <body>
-    <div class="jumbotron">
-
-        @Html.ActionLink("CREATE NEW STUDENT", "CreateStudent")
-
-    </div>
-
+    <p>
+        @Html.ActionLink("Create New", "CreateStudent") |
+        @Html.ActionLink("MAIN MENU", "Index", new { id = ViewBag.id })
+    </p>
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.student_name)
+                @Html.DisplayNameFor(model => model.Student_Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.student_email)
+                @Html.DisplayNameFor(model => model.Branch)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.student_address)
+                @Html.DisplayNameFor(model => model.Semester)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.student_contact)
+                @Html.DisplayNameFor(model => model.Class)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.student_dob)
+                @Html.DisplayNameFor(model => model.Division)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.student_password)
+                @Html.DisplayNameFor(model => model.Student_Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student_Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student_Contact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student_Dob)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student_Password)
             </th>
             <th></th>
         </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.student_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.student_email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.student_address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.student_contact)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.student_dob)
-                </td>
-                <td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.student_password)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.student_id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.student_id }) |
-                    @Html.ActionLink("Delete", "deletestudent", new { id = item.student_id })
-                </td>
-            </tr>
-        }
-
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Semester)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Class)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Division)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student_Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student_Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student_Contact)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student_Dob)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student_Password)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditStudent", new { id=item.Student_Id }) |
+                @Html.ActionLink("Delete", "DeleteStudent", new { id=item.Student_Id })
+            </td>
+        </tr>
+    }
+    
     </table>
 </body>
 </html>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

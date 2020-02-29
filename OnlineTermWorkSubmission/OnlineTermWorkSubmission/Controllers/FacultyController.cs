@@ -11,108 +11,18 @@ namespace OnlineTermWorkSubmission.Controllers
 {
     public class FacultyController : Controller
     {
-        // GET: Faculty
-        private ApplicationDbContext db = new ApplicationDbContext();
-        // GET: Admins
-        public ActionResult Index(int? id)
-        {
-            if (Session["facultyID"] == null)
-            {
-                return RedirectToAction("loginfaculty");
-            }
-            ViewBag.id = id;
-            return View();
-        }
-
-        // GET: Students/Create
-        public ActionResult CreateStudent()
-        {
-            if (Session["facultyID"] == null)
-            {
-                return RedirectToAction("LoginFaculty");
-            }
-            return View();
-        }
-
-        // POST: Students/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateStudent([Bind(Include = "student_id,student_name,student_email,student_address,student_contact,student_dob,student_password")] Student student)
-        {
-            if (Session["facultyID"] == null)
-            {
-                return RedirectToAction("LoginFaculty");
-            }
-            if (ModelState.IsValid)
-            {
-                db.Students.Add(student);
-                db.SaveChanges();
-                return RedirectToAction("ViewStudent");
-            }
-
-            return View(student);
-        }
+        private readonly ApplicationDbContext Db = new ApplicationDbContext();
 
 
-
-        // GET: Students/Delete/5
-        public ActionResult DeleteStudent(int? id)
-        {
-            if (Session["facultyID"] == null)
-            {
-                return RedirectToAction("LoginFaculty");
-            }
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Students.Find(id);
-            if (student == null)
-            {
-                return HttpNotFound();
-            }
-            return View(student);
-        }
-
-        // POST: Students/Delete/5
-        [HttpPost, ActionName("DeleteStudent")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Deleteconformedstudent(int id)
-        {
-            if (Session["facultyID"] == null)
-            {
-                return RedirectToAction("LoginFaculty");
-            }
-            Student student = db.Students.Find(id);
-            db.Students.Remove(student);
-            db.SaveChanges();
-            return RedirectToAction("ViewStudent");
-        }
-
-
-        // GET: Admins
-        public ActionResult ViewStudent()
-        {
-            if (Session["facultyID"] == null)
-            {
-                return RedirectToAction("LoginFaculty");
-            }
-            return View(db.Students.ToList());
-        }
-
-        // GET: Admins
         public ActionResult LoginFaculty()
         {
-
             return View();
         }
 
         [HttpPost]
-        public ActionResult LoginFaculty(Faculty adm)
+        public ActionResult LoginFaculty(Faculty faculty)
         {
-            var result = db.Faculties.Where(a => a.faculty_email == adm.faculty_email && a.faculty_password == adm.faculty_password).FirstOrDefault();
+            var result = Db.Faculties.Where(x => x.faculty_email == faculty.faculty_email && x.faculty_password == faculty.faculty_password).FirstOrDefault();
             if (result != null)
             {
                 Session["facultyID"] = result.faculty_email;
@@ -128,10 +38,104 @@ namespace OnlineTermWorkSubmission.Controllers
 
         public ActionResult Logout()
         {
-            Session["UID"] = null;
-            Session["UserID"] = null;
-            Session["adminID"] = null;
+            Session["ID"] = null;
+            Session["facultyID"] = null;
             return RedirectToAction("LoginFaculty");
+        }
+
+        public ActionResult Index(int? id)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("loginfaculty");
+            }
+            ViewBag.id = id;
+            return View();
+        }
+
+
+
+        // Controlling Students
+        public ActionResult ViewStudent()
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            return View(Db.Students.ToList());
+        }
+
+        public ActionResult CreateStudent()
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            return View();
+        }
+
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateStudent(Student student)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            if (ModelState.IsValid)
+            {
+                Db.Students.Add(student);
+                Db.SaveChanges();
+                return RedirectToAction("ViewStudent");
+            }
+
+            return View(student);
+        }
+
+        public ActionResult DeleteStudent(int? id)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Student student = Db.Students.Find(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+            return View(student);
+        }
+
+        [HttpPost, ActionName("DeleteStudent")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Deleteconfirmedstudent(int id)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            Student student = Db.Students.Find(id);
+            Db.Students.Remove(student);
+            Db.SaveChanges();
+            return RedirectToAction("ViewStudent");
+        }
+
+
+
+        //Controlling Subjects
+        public ActionResult ViewSubject(int? id)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            ViewBag.id = id;
+            return View(Db.Subjects.Where(x => x.Faculties.Any(y => y.faculty_id == id)).ToList());
         }
 
         public ActionResult CreateSubject(int? fid)
@@ -144,7 +148,6 @@ namespace OnlineTermWorkSubmission.Controllers
             return View();
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateSubject(Subject subject, int? fid)
@@ -156,9 +159,9 @@ namespace OnlineTermWorkSubmission.Controllers
             if (ModelState.IsValid && subject != null)
             {
 
-                Faculty result = db.Faculties.Find(fid);
+                Faculty result = Db.Faculties.Find(fid);
                 result.Subjects.Add(subject);
-                db.SaveChanges();
+                Db.SaveChanges();
                 return RedirectToAction("ViewSubject", new { id = fid });
             }
             ViewBag.id = fid;
@@ -175,7 +178,7 @@ namespace OnlineTermWorkSubmission.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subject subject = db.Subjects.Find(subId);
+            Subject subject = Db.Subjects.Find(subId);
             if (subject == null)
             {
                 return HttpNotFound();
@@ -184,7 +187,6 @@ namespace OnlineTermWorkSubmission.Controllers
             return View(subject);
         }
 
-        // POST: Students/Delete/5
         [HttpPost, ActionName("DeleteSubject")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmedSubject(int subId, int? fid)
@@ -194,23 +196,12 @@ namespace OnlineTermWorkSubmission.Controllers
                 return RedirectToAction("LoginFaculty");
             }
             ViewBag.id = fid;
-            Subject subject = db.Subjects.Find(subId);
-            db.Subjects.Remove(subject);
-            db.SaveChanges();
+            Subject subject = Db.Subjects.Find(subId);
+            Db.Subjects.Remove(subject);
+            Db.SaveChanges();
             return RedirectToAction("ViewSubject", new { id = fid });
         }
 
-        public ActionResult ViewSubject(int? id)
-        {
-            if (Session["facultyID"] == null)
-            {
-                return RedirectToAction("LoginFaculty");
-            }
-            ViewBag.id = id;
-            return View(db.Subjects.Where(x => x.Faculties.Any(y => y.faculty_id == id)).ToList());
-        }
-
-        // GET: Faculties/Edit/5
         public ActionResult EditSubject(int? subId, int? fid)
         {
             if (Session["facultyID"] == null)
@@ -221,7 +212,7 @@ namespace OnlineTermWorkSubmission.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subject subject = db.Subjects.Find(subId);
+            Subject subject = Db.Subjects.Find(subId);
             if (subject == null)
             {
                 return HttpNotFound();
@@ -232,9 +223,6 @@ namespace OnlineTermWorkSubmission.Controllers
             return View(subject);
         }
 
-        // POST: Faculties/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditSubject([Bind(Include = "subject_name,semester")] Subject subject, int? fid)
@@ -242,18 +230,33 @@ namespace OnlineTermWorkSubmission.Controllers
             if (ModelState.IsValid)
             {
                 int SubjectId = (int)TempData["SubjectID"];
-                var result = db.Subjects.Where(x => x.subject_id == SubjectId).FirstOrDefault();
+                var result = Db.Subjects.Where(x => x.subject_id == SubjectId).FirstOrDefault();
                 if (result != null)
                 {
                     result.subject_name = subject.subject_name;
                     result.semester = subject.semester;
-                    db.Entry(result).State = EntityState.Modified;
-                    db.SaveChanges();
+                    Db.Entry(result).State = EntityState.Modified;
+                    Db.SaveChanges();
                 }
                 ViewBag.id = fid;
                 return RedirectToAction("ViewSubject", new { id = fid });
             }
             return View(subject);
+        }
+
+
+
+        // Controlling Labs
+        public ActionResult ViewLabs(int? sid, int? id)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            ViewBag.id = id;
+            ViewBag.sid = sid;
+            ViewBag.subname = Db.Subjects.Where(x => x.subject_id == sid).Select(x => x.subject_name).FirstOrDefault();
+            return View(Db.Labs.Where(x => x.subject_id == sid).ToList());
         }
 
         public ActionResult CreateLabs(int? subId, int? fid)
@@ -278,71 +281,13 @@ namespace OnlineTermWorkSubmission.Controllers
             }
             if (ModelState.IsValid && lab != null)
             {
-                Subject result = db.Subjects.Find(subId);
+                Subject result = Db.Subjects.Find(subId);
                 result.Labs.Add(lab);
-                db.SaveChanges();
+                Db.SaveChanges();
                 return RedirectToAction("ViewLabs", new { sid = subId, id = fid });
             }
             ViewBag.id = fid;
             ViewBag.sid = subId;
-            return View(lab);
-        }
-
-        public ActionResult ViewLabs(int? sid, int? id)
-        {
-            if (Session["facultyID"] == null)
-            {
-                return RedirectToAction("LoginFaculty");
-            }
-            ViewBag.id = id;
-            ViewBag.sid = sid;
-            return View(db.Labs.Where(x => x.subject_id == sid).ToList());
-        }
-
-        public ActionResult EditLabs(int? labId, int? subId, int? fid)
-        {
-            if (Session["facultyID"] == null)
-            {
-                return RedirectToAction("LoginFaculty");
-            }
-            if (subId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Lab lab = db.Labs.Find(labId);
-            if (lab == null)
-            {
-                return HttpNotFound();
-            }
-            TempData["LabID"] = labId;
-            TempData.Keep();
-            ViewBag.id = fid;
-            ViewBag.sid = subId;
-            return View(lab);
-        }
-
-        // POST: Faculties/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditLabs([Bind(Include = "lab_no, lab_startdate")] Lab lab, int? subId, int? fid)
-        {
-            if (ModelState.IsValid)
-            {
-                int LabId = (int)TempData["LabID"];
-                var result = db.Labs.Where(x => x.lab_id == LabId).FirstOrDefault();
-                if (result != null)
-                {
-                    result.lab_no = lab.lab_no;
-                    result.lab_startdate = lab.lab_startdate;
-                    db.Entry(result).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                ViewBag.id = fid;
-                ViewBag.sid = subId;
-                return RedirectToAction("ViewLabs", new { sid = subId, id = fid });
-            }
             return View(lab);
         }
 
@@ -356,7 +301,7 @@ namespace OnlineTermWorkSubmission.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lab lab = db.Labs.Find(labId);
+            Lab lab = Db.Labs.Find(labId);
             if (lab == null)
             {
                 return HttpNotFound();
@@ -366,7 +311,6 @@ namespace OnlineTermWorkSubmission.Controllers
             return View(lab);
         }
 
-        // POST: Students/Delete/5
         [HttpPost, ActionName("DeleteLabs")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmedLabs(int? labId, int? subId, int? fid)
@@ -377,10 +321,70 @@ namespace OnlineTermWorkSubmission.Controllers
             }
             ViewBag.id = fid;
             ViewBag.sid = subId;
-            Lab lab = db.Labs.Find(labId);
-            db.Labs.Remove(lab);
-            db.SaveChanges();
+            Lab lab = Db.Labs.Find(labId);
+            Db.Labs.Remove(lab);
+            Db.SaveChanges();
             return RedirectToAction("ViewLabs", new { sid = subId, id = fid });
+        }
+
+        public ActionResult EditLabs(int? labId, int? subId, int? fid)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            if (subId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Lab lab = Db.Labs.Find(labId);
+            if (lab == null)
+            {
+                return HttpNotFound();
+            }
+            TempData["LabID"] = labId;
+            TempData.Keep();
+            ViewBag.id = fid;
+            ViewBag.sid = subId;
+            return View(lab);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditLabs([Bind(Include = "lab_no, lab_startdate")] Lab lab, int? subId, int? fid)
+        {
+            if (ModelState.IsValid)
+            {
+                int LabId = (int)TempData["LabID"];
+                var result = Db.Labs.Where(x => x.lab_id == LabId).FirstOrDefault();
+                if (result != null)
+                {
+                    result.lab_no = lab.lab_no;
+                    result.lab_startdate = lab.lab_startdate;
+                    Db.Entry(result).State = EntityState.Modified;
+                    Db.SaveChanges();
+                }
+                ViewBag.id = fid;
+                ViewBag.sid = subId;
+                return RedirectToAction("ViewLabs", new { sid = subId, id = fid });
+            }
+            return View(lab);
+        }
+
+
+
+        // Controlling Assignments
+        public ActionResult ViewAssignments(int? lid, int? sid, int? id)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            ViewBag.id = id;
+            ViewBag.sid = sid;
+            ViewBag.lid = lid;
+            ViewBag.labno = Db.Labs.Where(x => x.lab_id == lid).Select(x => x.lab_no).FirstOrDefault();
+            return View(Db.Assignments.Where(x => x.lab_id == lid).ToList());
         }
 
         public ActionResult CreateAssignments(int? labId, int? subId, int? fid)
@@ -406,78 +410,15 @@ namespace OnlineTermWorkSubmission.Controllers
             }
             if (ModelState.IsValid && assignment != null)
             {
-                Lab result = db.Labs.Find(labId);
+                Lab result = Db.Labs.Find(labId);
                 result.Assignments.Add(assignment);
-                db.SaveChanges();
+                Db.SaveChanges();
                 return RedirectToAction("ViewAssignments", new { lid = labId, sid = subId, id = fid });
             }
             ViewBag.id = fid;
             ViewBag.sid = subId;
             ViewBag.lid = labId;
            
-            return View(assignment);
-        }
-
-
-        public ActionResult ViewAssignments(int? lid, int? sid, int? id)
-        {
-            if (Session["facultyID"] == null)
-            {
-                return RedirectToAction("LoginFaculty");
-            }
-            ViewBag.id = id;
-            ViewBag.sid = sid;
-            ViewBag.lid = lid;
-            return View(db.Assignments.Where(x => x.lab_id == lid).ToList());
-        }
-
-        public ActionResult EditAssignments(int? asgId, int? labId, int? subId, int? fid)
-        {
-            if (Session["facultyID"] == null)
-            {
-                return RedirectToAction("LoginFaculty");
-            }
-            if (asgId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Assignment assignment = db.Assignments.Find(asgId);
-            if (assignment == null)
-            {
-                return HttpNotFound();
-            }
-            TempData["AsgID"] = asgId;
-            TempData.Keep();
-            ViewBag.id = fid;
-            ViewBag.sid = subId;
-            ViewBag.lid = labId;
-            return View(assignment);
-        }
-
-        // POST: Faculties/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditAssignments([Bind(Include = "assignment_no,assignment_text,assignment_enddate")] Assignment assignment, int? labId, int? subId, int? fid)
-        {
-            if (ModelState.IsValid)
-            {
-                int AsgId = (int)TempData["AsgID"];
-                var result = db.Assignments.Where(x => x.assignment_id == AsgId).FirstOrDefault();
-                if (result != null)
-                {
-                    result.assignment_no = assignment.assignment_no;
-                    result.assignment_text = assignment.assignment_text;
-                    result.assignment_enddate = assignment.assignment_enddate;
-                    db.Entry(result).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                ViewBag.id = fid;
-                ViewBag.sid = subId;
-                ViewBag.lid = labId;
-                return RedirectToAction("ViewAssignments", new {lid = labId, sid = subId, id = fid });
-            }
             return View(assignment);
         }
 
@@ -491,7 +432,7 @@ namespace OnlineTermWorkSubmission.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Assignment assignment = db.Assignments.Find(asgId);
+            Assignment assignment = Db.Assignments.Find(asgId);
             if (assignment == null)
             {
                 return HttpNotFound();
@@ -502,7 +443,6 @@ namespace OnlineTermWorkSubmission.Controllers
             return View(assignment);
         }
 
-        // POST: Students/Delete/5
         [HttpPost, ActionName("DeleteAssignments")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmedAssignments(int? asgId, int? labId, int? subId, int? fid)
@@ -514,19 +454,67 @@ namespace OnlineTermWorkSubmission.Controllers
             ViewBag.id = fid;
             ViewBag.sid = subId;
             ViewBag.lid = labId;
-            Assignment assignment = db.Assignments.Find(asgId);
-            db.Assignments.Remove(assignment);
-            db.SaveChanges();
-            return RedirectToAction("ViewAssignments", new {lid = labId, sid = subId, id = fid });
+            Assignment assignment = Db.Assignments.Find(asgId);
+            Db.Assignments.Remove(assignment);
+            Db.SaveChanges();
+            return RedirectToAction("ViewAssignments", new { lid = labId, sid = subId, id = fid });
+        }
+
+        public ActionResult EditAssignments(int? asgId, int? labId, int? subId, int? fid)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            if (asgId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Assignment assignment = Db.Assignments.Find(asgId);
+            if (assignment == null)
+            {
+                return HttpNotFound();
+            }
+            TempData["AsgID"] = asgId;
+            TempData.Keep();
+            ViewBag.id = fid;
+            ViewBag.sid = subId;
+            ViewBag.lid = labId;
+            return View(assignment);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAssignments([Bind(Include = "assignment_no,assignment_text,assignment_enddate")] Assignment assignment, int? labId, int? subId, int? fid)
+        {
+            if (ModelState.IsValid)
+            {
+                int AsgId = (int)TempData["AsgID"];
+                var result = Db.Assignments.Where(x => x.assignment_id == AsgId).FirstOrDefault();
+                if (result != null)
+                {
+                    result.assignment_no = assignment.assignment_no;
+                    result.assignment_text = assignment.assignment_text;
+                    result.assignment_enddate = assignment.assignment_enddate;
+                    Db.Entry(result).State = EntityState.Modified;
+                    Db.SaveChanges();
+                }
+                ViewBag.id = fid;
+                ViewBag.sid = subId;
+                ViewBag.lid = labId;
+                return RedirectToAction("ViewAssignments", new {lid = labId, sid = subId, id = fid });
+            }
+            return View(assignment);
         }
 
 
 
+        // Dispose
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                Db.Dispose();
             }
             base.Dispose(disposing);
         }

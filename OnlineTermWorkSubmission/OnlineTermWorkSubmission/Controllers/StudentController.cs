@@ -32,15 +32,15 @@ namespace OnlineTermWorkSubmission.Controllers
         }
 
         [HttpPost]
-        public ActionResult StudentLogin(Student stud)
+        public ActionResult StudentLogin(Student student)
         {
             if (ModelState.IsValid)
             {
-                var result = db.Students.Where(a => a.student_email == stud.student_email & a.student_password == stud.student_password).FirstOrDefault();
+                var result = db.Students.Where(a => a.Student_Email == student.Student_Email & a.Student_Password == student.Student_Password).FirstOrDefault();
                 if (result != null)
                 {
-                    Session["UserID"] = result.student_email;
-                    Session["ID"] = result.student_id;
+                    Session["UserID"] = result.Student_Email;
+                    Session["ID"] = result.Student_Id;
                     return RedirectToAction("Details");
                 }
                 else
@@ -49,7 +49,7 @@ namespace OnlineTermWorkSubmission.Controllers
                 }
 
             }
-            return View(stud);
+            return View(student);
         }
 
         // GET: Students/Details/5

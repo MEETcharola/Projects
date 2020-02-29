@@ -51,26 +51,38 @@ namespace OnlineTermWorkSubmission.Models
     {
         [Key]
         [Display(Name = "Id")]
-        public int student_id { get; set; }
+        public int Student_Id { get; set; }
         [Required]
-        [Display(Name = "Name")]
-        public string student_name { get; set; }
+        [Display(Name = "Student Name")]
+        public string Student_Name { get; set; }
+        [Required]
+        [Display(Name = "Branch")]
+        public string Branch { get; set; }
+        [Required]
+        [Display(Name = "Semester")]
+        public string Semester { get; set; }
+        [Required]
+        [Display(Name = "Class")]
+        public string Class { get; set; }
+        [Required]
+        [Display(Name = "Division")]
+        public string Division { get; set; } 
         [Required]
         [Display(Name = "Email Id")]
-        public string student_email { get; set; }
+        public string Student_Email { get; set; }
         [Required]
         [Display(Name = "Address")]
-        public string student_address { get; set; }
+        public string Student_Address { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber)]
-        [Display(Name = "Your Phone")]
-        public string student_contact { get; set; }
+        [Display(Name = "Phone Number")]
+        public string Student_Contact { get; set; }
         [Required]
         [Display(Name = "Date Of Birth")]
-        public DateTime student_dob { get; set; }
+        public DateTime Student_Dob { get; set; }
         [Required]
         [Display(Name = "Password")]
-        public string student_password { get; set; }
+        public string Student_Password { get; set; }
 
         public virtual ICollection<Subject> Subjects { get; set; }
 
@@ -83,13 +95,13 @@ namespace OnlineTermWorkSubmission.Models
         [Display(Name = "Id")]
         public int faculty_id { get; set; }
         [Required]
-        [Display(Name = "Name")]
+        [Display(Name = "Facluty Name")]
         public string faculty_name { get; set; }
         [Required]
         [Display(Name = "Email Id")]
         public string faculty_email { get; set; }
         [Required]
-        [Display(Name = "Your Phone")]
+        [Display(Name = "Phone Number")]
         [DataType(DataType.PhoneNumber)]
         public string faculty_contact { get; set; }
         [Required]
@@ -109,7 +121,7 @@ namespace OnlineTermWorkSubmission.Models
         [Display(Name = "Id")]
         public int subject_id { get; set; }
         [Required]
-        [Display(Name = "Name")]
+        [Display(Name = "Subject Name")]
         public string subject_name { get; set; }
 
         [Required]
@@ -129,7 +141,7 @@ namespace OnlineTermWorkSubmission.Models
         [Display(Name = "Id")]
         public int lab_id { get; set; }
         [Required]
-        [Display(Name = "Lab No.")]
+        [Display(Name = "Lab No")]
         public int lab_no { get; set; }
         [Required]
         [Display(Name = "Date")]
@@ -151,7 +163,7 @@ namespace OnlineTermWorkSubmission.Models
         public int assignment_id { get; set; }
 
         [Required]
-        [Display(Name = "No")]
+        [Display(Name = "Assignment No")]
         public int assignment_no { get; set; }
 
         [Required]

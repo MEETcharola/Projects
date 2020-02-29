@@ -19,11 +19,12 @@
 
     </div>
 
+    <div>
+        @Html.DisplayNameFor(model => model.Subjects.subject_name) : @ViewBag.subname
+    </div>
+
     <table class="table">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Subjects.subject_name)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.lab_no)
             </th>
@@ -36,9 +37,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Subjects.subject_name)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.lab_no)
                 </td>
@@ -55,6 +53,6 @@
 
     </table>
 
-   
+
 </body>
 </html>
