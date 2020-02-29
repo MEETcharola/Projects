@@ -23,21 +23,27 @@
             <th>
                 @Html.DisplayNameFor(model => model.subject_name)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.semester)
+            </th>
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.subject_name)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditSubject", new { subId = item.subject_id, fid = ViewBag.id }) |
-                    @Html.ActionLink("Delete", "DeleteSubject", new { subId = item.subject_id, fid = ViewBag.id }) |
-                    @Html.ActionLink("Labs", "ViewLabs", new { sid = item.subject_id , id = ViewBag.id })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.subject_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.semester)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditSubject", new { subId = item.subject_id, fid = ViewBag.id }) |
+                @Html.ActionLink("Delete", "DeleteSubject", new { subId = item.subject_id, fid = ViewBag.id }) |
+                @Html.ActionLink("Labs", "ViewLabs", new { sid = item.subject_id, id = ViewBag.id })
+            </td>
+        </tr>
         }
 
     </table>

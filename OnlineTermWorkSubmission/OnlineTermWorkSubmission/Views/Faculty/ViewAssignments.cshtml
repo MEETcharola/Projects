@@ -14,36 +14,47 @@
 <body>
     <div class="jumbotron">
 
-        @Html.ActionLink("CREATE NEW ASSIGNMENT", "CreateAssignments", new { labId = ViewBag.lid, subId = ViewBag.sid, fid = ViewBag.id }) | 
-        @Html.ActionLink("Back To Labs", "ViewLabs", new {sid = ViewBag.sid ,id = ViewBag.id })
+        @Html.ActionLink("CREATE NEW ASSIGNMENT", "CreateAssignments", new { labId = ViewBag.lid, subId = ViewBag.sid, fid = ViewBag.id }) |
+        @Html.ActionLink("Back To Labs", "ViewLabs", new { sid = ViewBag.sid, id = ViewBag.id })
 
     </div>
-    
+
+    <div>
+        @Html.DisplayNameFor(model => model.Labs.lab_no) : 
+    </div>
+
     <table class="table">
         <tr>
+
             <th>
-                @Html.DisplayNameFor(model => model.Labs.lab_id)
+                @Html.DisplayNameFor(model => model.assignment_no)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.assignment_text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.assignment_enddate)
             </th>
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Labs.lab_id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.assignment_text)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditAssignments", new { id = item.assignment_id, labId = ViewBag.lid, subId = ViewBag.sid, fid = ViewBag.id }) |
-                    @Html.ActionLink("Delete", "DeleteAssignments", new { id = item.assignment_id, labId = ViewBag.lid, subId = ViewBag.sid, fid = ViewBag.id })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.assignment_no)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.assignment_text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.assignment_enddate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditAssignments", new { asgId = item.assignment_id, labId = ViewBag.lid, subId = ViewBag.sid, fid = ViewBag.id }) |
+                @Html.ActionLink("Delete", "DeleteAssignments", new { asgId = item.assignment_id, labId = ViewBag.lid, subId = ViewBag.sid, fid = ViewBag.id })
+            </td>
+        </tr>
         }
 
     </table>

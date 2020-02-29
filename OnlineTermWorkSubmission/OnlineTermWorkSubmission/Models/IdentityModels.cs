@@ -112,6 +112,10 @@ namespace OnlineTermWorkSubmission.Models
         [Display(Name = "Name")]
         public string subject_name { get; set; }
 
+        [Required]
+        [Display(Name = "Semester")]
+        public int semester { get; set; }
+
         public virtual ICollection<Faculty> Faculties { get; set; }
 
         public virtual ICollection<Student> Students { get; set; }
@@ -145,10 +149,18 @@ namespace OnlineTermWorkSubmission.Models
         [Key]
         [Display(Name = "Id")]
         public int assignment_id { get; set; }
+
+        [Required]
+        [Display(Name = "No")]
+        public int assignment_no { get; set; }
+
         [Required]
         [Display(Name = "Description")]
         public string assignment_text { get; set; }
 
+        [Required]
+        [Display(Name = "End Date")]
+        public DateTime assignment_enddate { get; set; }
 
         public int lab_id { get; set; }
         [ForeignKey("lab_id")]
