@@ -199,6 +199,18 @@
     <Compile Include="Migrations\202002291416529_init290220.Designer.cs">
       <DependentUpon>202002291416529_init290220.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003011610158_init010320.cs" />
+    <Compile Include="Migrations\202003011610158_init010320.Designer.cs">
+      <DependentUpon>202003011610158_init010320.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003011618285_init0103201.cs" />
+    <Compile Include="Migrations\202003011618285_init0103201.Designer.cs">
+      <DependentUpon>202003011618285_init0103201.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003011715028_init0103204.cs" />
+    <Compile Include="Migrations\202003011715028_init0103204.Designer.cs">
+      <DependentUpon>202003011715028_init0103204.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -281,6 +293,9 @@
     <Content Include="Views\Faculty\ViewStudent.cshtml" />
     <Content Include="Views\Faculty\CreateStudent.cshtml" />
     <Content Include="Views\Faculty\DeleteStudent.cshtml" />
+    <Content Include="Views\Faculty\SelectStudents.cshtml" />
+    <Content Include="Views\Faculty\ViewEnrolledStudent.cshtml" />
+    <Content Include="Views\Faculty\EnrollStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -317,6 +332,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002291416529_init290220.resx">
       <DependentUpon>202002291416529_init290220.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003011610158_init010320.resx">
+      <DependentUpon>202003011610158_init010320.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003011618285_init0103201.resx">
+      <DependentUpon>202003011618285_init0103201.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003011715028_init0103204.resx">
+      <DependentUpon>202003011715028_init0103204.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

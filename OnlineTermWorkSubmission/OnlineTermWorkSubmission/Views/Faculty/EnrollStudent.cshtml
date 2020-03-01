@@ -1,0 +1,54 @@
+﻿@model OnlineTermWorkSubmission.Models.Branch
+
+@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EnrollStudent</title>
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Branch</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Branch_Id, ViewBag.Branch as IEnumerable<SelectListItem>, "Select")
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(ViewBag.cls , ViewBag.Class as IEnumerable<SelectListItem>, "Select")
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Branch_Id, ViewBag.Division as IEnumerable<SelectListItem>, "Select")
+            </div>
+        </div>
+            @{
+
+            }
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

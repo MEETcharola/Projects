@@ -56,12 +56,13 @@ namespace OnlineTermWorkSubmission.Controllers
 
 
         // Controlling Students
-        public ActionResult ViewStudent()
+        public ActionResult ViewStudent(int? id)
         {
             if (Session["facultyID"] == null)
             {
                 return RedirectToAction("LoginFaculty");
             }
+            ViewBag.id = id;
             return View(Db.Students.ToList());
         }
 
@@ -124,6 +125,88 @@ namespace OnlineTermWorkSubmission.Controllers
             Db.SaveChanges();
             return RedirectToAction("ViewStudent");
         }
+
+        public ActionResult SelectStudents(int? id)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            ViewBag.id = id;
+            return View(Db.Subjects.Where(x => x.Faculties.Any(y => y.faculty_id == id)).ToList());
+        }
+
+
+        public ActionResult ViewEnrolledStudent(int? sid, int? id)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            ViewBag.id = id;
+            ViewBag.sid = sid;
+            return View(Db.Students.Where(x => x.Subjects.Any(y => y.subject_id == sid)).ToList());
+        }
+
+        public ActionResult EnrollStudent(int? subId, int? fid)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            ViewBag.id = fid;
+            ViewBag.sid = subId;
+            
+            var branchResult = Db.Branches.Select(x => new SelectListItem() { Text = x.Branch_Name, Value = x.Branch_Id.ToString() }).ToList();
+            ViewBag.Branch = branchResult;
+            foreach(var i in branchResult)
+            {
+                if (i.Selected)
+                {
+                    var classResult = Db.Classes.Where(x => x.Branch_Id.ToString() == i.Value).Select(x => new SelectListItem() { Text = x.Class_Name, Value = x.Class_Id.ToString() }).ToList();
+                    ViewBag.Class = classResult;
+                    foreach(var j in classResult)
+                    {
+                        if(j.Selected)
+                        {
+                            ViewBag.dv = Db.Divisions.Select(x => x.Division_Id).ToList();
+                            var divisionResult = Db.Divisions.Where(x => x.Class_Id.ToString() == j.Value).Select(x => new SelectListItem() { Text = x.Division_Name, Value = x.Division_Id.ToString() }).ToList();
+                            ViewBag.Division = divisionResult;
+                        }
+                    }
+                }
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnrollStudent(Branch branch, Class @class, Division division, int? subId, int? fid)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("loginfaculty");
+            }
+            if (ModelState.IsValid)
+            {
+
+                //var dresult = Db.Divisions.Where(x => x.Division_Name == student.Division).FirstOrDefault();
+                //var cresult = Db.Classes.Where(x => x.Class_Name == student.Class).FirstOrDefault();
+                //var breasult = Db.Branches.Where(x => x.Branch_Name == student.Branch).FirstOrDefault();
+                var result = Db.Students.Where(x => x.Branch == branch.Branch_Name && x.Class == @class.Class_Name && x.Division == division.Division_Name).ToList();
+                Subject result1 = Db.Subjects.Find(subId);
+                foreach(var i in result)
+                {
+                    result1.Students.Add(i);
+                }
+                Db.SaveChanges();
+                return RedirectToAction("ViewEnrolledStudent", new { sid = subId, id = fid });
+            }
+            ViewBag.id = fid;
+            ViewBag.sid = subId;
+            return View();
+        }
+
 
 
 
@@ -507,6 +590,7 @@ namespace OnlineTermWorkSubmission.Controllers
             return View(assignment);
         }
 
+        
 
 
         // Dispose

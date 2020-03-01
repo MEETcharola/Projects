@@ -39,6 +39,11 @@ namespace OnlineTermWorkSubmission.Models
 
         public virtual DbSet<Assignment> Assignments { get; set; }
 
+        public virtual DbSet<Branch> Branches { get; set; }
+
+        public virtual DbSet<Class> Classes { get; set; }
+
+        public virtual DbSet<Division> Divisions { get; set; }
 
         public static ApplicationDbContext Create()
         {
@@ -88,7 +93,39 @@ namespace OnlineTermWorkSubmission.Models
 
 
     }
+    
+    public class Branch
+    {
+        [Key]
+        public int Branch_Id { get; set; }
+        public string Branch_Name { get; set; }
 
+        public virtual ICollection<Class> Classes { get; set; }
+    }
+
+    public class Class
+    {
+        [Key]
+        public int Class_Id { get; set; }
+        public string Class_Name { get; set; }
+
+        public int Branch_Id { get; set; }
+        [ForeignKey("Branch_Id")]
+        public virtual Branch Branches { get; set; }
+
+        public virtual ICollection<Division> Divisions { get; set; }
+    }
+
+    public class Division
+    {
+        [Key]
+        public int Division_Id { get; set; }
+        public string Division_Name { get; set; }
+
+        public int Class_Id { get; set; }
+        [ForeignKey("Class_Id")]
+        public virtual Class Classes { get; set; }
+    }
     public class Faculty
     {
         [Key]

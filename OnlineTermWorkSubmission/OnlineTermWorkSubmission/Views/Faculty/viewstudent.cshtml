@@ -14,6 +14,7 @@
 <body>
     <p>
         @Html.ActionLink("Create New", "CreateStudent") |
+        @Html.ActionLink("Select Students", "SelectStudents", new { id = ViewBag.id }) |
         @Html.ActionLink("MAIN MENU", "Index", new { id = ViewBag.id })
     </p>
     <table class="table">
