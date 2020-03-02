@@ -165,6 +165,7 @@ namespace OnlineTermWorkSubmission.Controllers
                 {
                     var classResult = Db.Classes.Where(x => x.Branch_Id.ToString() == i.Value).Select(x => new SelectListItem() { Text = x.Class_Name, Value = x.Class_Id.ToString() }).ToList();
                     ViewBag.Class = classResult;
+                    ViewBag.Clist = Db.Classes.ToList();
                     foreach(var j in classResult)
                     {
                         if(j.Selected)
