@@ -24,41 +24,47 @@
                 @Html.DisplayNameFor(model => model.Branch)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Division)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Batch)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Semester)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Class)
+                @Html.DisplayNameFor(model => model.Roll_No)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Division)
-            </th>
-            
+
             <th></th>
         </tr>
     
     @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Student_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Branch)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Semester)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Class)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Division)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Student_Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Student_Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Student_Id })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Branch)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Division)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Batch)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Semester)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Roll_No)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Student_Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Student_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Student_Id })
+        </td>
+    </tr>
     }
     
     </table>

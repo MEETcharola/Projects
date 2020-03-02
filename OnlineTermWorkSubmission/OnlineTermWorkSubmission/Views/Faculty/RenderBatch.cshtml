@@ -1,0 +1,18 @@
+﻿@model OnlineTermWorkSubmission.Models.Batch
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RenderBatch</title>
+</head>
+<body>
+    <div>
+        @Html.DropDownListFor(m=>m.Batch_Id, ViewBag.Batch as IEnumerable<SelectListItem>, "Select")
+    </div>
+</body>
+</html>

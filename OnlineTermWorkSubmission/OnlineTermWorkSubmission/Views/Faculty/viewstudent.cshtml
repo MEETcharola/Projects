@@ -13,7 +13,7 @@
 </head>
 <body>
     <p>
-        @Html.ActionLink("Create New", "CreateStudent") |
+        @Html.ActionLink("Create New", "CreateStudent", new { fid = ViewBag.id }) |
         @Html.ActionLink("Select Students", "SelectStudents", new { id = ViewBag.id }) |
         @Html.ActionLink("MAIN MENU", "Index", new { id = ViewBag.id })
     </p>
@@ -29,16 +29,16 @@
                 @Html.DisplayNameFor(model => model.Semester)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Class)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Division)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Student_Email)
+                @Html.DisplayNameFor(model => model.Batch)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Student_Address)
+                @Html.DisplayNameFor(model => model.Roll_No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student_Email)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Student_Contact)
@@ -53,42 +53,42 @@
         </tr>
     
     @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Student_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Branch)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Semester)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Class)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Division)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Student_Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Student_Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Student_Contact)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Student_Dob)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Student_Password)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EditStudent", new { id=item.Student_Id }) |
-                @Html.ActionLink("Delete", "DeleteStudent", new { id=item.Student_Id })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Branch)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Semester)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Division)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Batch)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Roll_No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student_Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student_Contact)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student_Dob)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student_Password)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditStudent", new { id = item.Student_Id, fid = ViewBag.id }) |
+            @Html.ActionLink("Delete", "DeleteStudent", new { id = item.Student_Id, fid = ViewBag.id })
+        </td>
+    </tr>
     }
     
     </table>

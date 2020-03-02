@@ -41,9 +41,9 @@ namespace OnlineTermWorkSubmission.Models
 
         public virtual DbSet<Branch> Branches { get; set; }
 
-        public virtual DbSet<Class> Classes { get; set; }
-
         public virtual DbSet<Division> Divisions { get; set; }
+
+        public virtual DbSet<Batch> Batches { get; set; }
 
         public static ApplicationDbContext Create()
         {
@@ -64,20 +64,20 @@ namespace OnlineTermWorkSubmission.Models
         [Display(Name = "Branch")]
         public string Branch { get; set; }
         [Required]
-        [Display(Name = "Semester")]
-        public string Semester { get; set; }
-        [Required]
-        [Display(Name = "Class")]
-        public string Class { get; set; }
-        [Required]
         [Display(Name = "Division")]
-        public string Division { get; set; } 
+        public string Division { get; set; }
+        [Required]
+        [Display(Name = "Batch")]
+        public string Batch { get; set; }
+        [Required]
+        [Display(Name = "Roll No")]
+        public int Roll_No { get; set; }
+        [Required]
+        [Display(Name = "Semester")]
+        public int Semester { get; set; }
         [Required]
         [Display(Name = "Email Id")]
         public string Student_Email { get; set; }
-        [Required]
-        [Display(Name = "Address")]
-        public string Student_Address { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Phone Number")]
@@ -100,19 +100,6 @@ namespace OnlineTermWorkSubmission.Models
         public int Branch_Id { get; set; }
         public string Branch_Name { get; set; }
 
-        public virtual ICollection<Class> Classes { get; set; }
-    }
-
-    public class Class
-    {
-        [Key]
-        public int Class_Id { get; set; }
-        public string Class_Name { get; set; }
-
-        public int Branch_Id { get; set; }
-        [ForeignKey("Branch_Id")]
-        public virtual Branch Branches { get; set; }
-
         public virtual ICollection<Division> Divisions { get; set; }
     }
 
@@ -122,10 +109,25 @@ namespace OnlineTermWorkSubmission.Models
         public int Division_Id { get; set; }
         public string Division_Name { get; set; }
 
-        public int Class_Id { get; set; }
-        [ForeignKey("Class_Id")]
-        public virtual Class Classes { get; set; }
+        public int Branch_Id { get; set; }
+        [ForeignKey("Branch_Id")]
+        public virtual Branch Branches { get; set; }
+
+        public virtual ICollection<Batch> Batches { get; set; }
     }
+
+    public class Batch
+    {
+        [Key]
+        public int Batch_Id { get; set; }
+        public string Batch_Name { get; set; }
+
+        public int Division_Id { get; set; }
+        [ForeignKey("Division_Id")]
+        public virtual Division Divisions { get; set; }
+    }
+
+    
     public class Faculty
     {
         [Key]

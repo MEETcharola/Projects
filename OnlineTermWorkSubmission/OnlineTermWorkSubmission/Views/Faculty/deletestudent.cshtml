@@ -34,22 +34,6 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Semester)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Semester)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Class)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Class)
-            </dd>
-    
-            <dt>
                 @Html.DisplayNameFor(model => model.Division)
             </dt>
     
@@ -58,19 +42,35 @@
             </dd>
     
             <dt>
+                @Html.DisplayNameFor(model => model.Batch)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Batch)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Roll_No)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Roll_No)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Semester)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Semester)
+            </dd>
+    
+            <dt>
                 @Html.DisplayNameFor(model => model.Student_Email)
             </dt>
     
             <dd>
                 @Html.DisplayFor(model => model.Student_Email)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Student_Address)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Student_Address)
             </dd>
     
             <dt>
@@ -102,10 +102,10 @@
         @using (Html.BeginForm()) {
             @Html.AntiForgeryToken()
     
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
-            </div>
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "ViewStudent", new { id = ViewBag.id })
+    </div>
         }
     </div>
 </body>
