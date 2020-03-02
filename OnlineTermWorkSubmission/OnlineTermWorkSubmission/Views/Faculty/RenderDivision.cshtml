@@ -1,0 +1,18 @@
+﻿@model OnlineTermWorkSubmission.Models.Division
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RenderClass</title>
+</head>
+<body>
+    <div>
+        @Html.DropDownListFor(m=>m.Division_Id, ViewBag.Division as IEnumerable<SelectListItem>, "Select")
+    </div>
+</body>
+</html>

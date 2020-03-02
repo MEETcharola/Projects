@@ -25,21 +25,15 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @{
-                object obj = null;
-                foreach(var i in ViewBag.Clist)
-                {
-                    obj = i.Class_Id;
-                }
-            }
+            
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Branch_Id, ViewBag.Branch as IEnumerable<SelectListItem>, "Select")
             </div>
             <div class="col-md-10">
-                @Html.DropDownList(obj.ToString(), ViewBag.Class as IEnumerable<SelectListItem>, "Select")
+                @{ Html.RenderAction("RenderClass"); }
             </div>
             <div class="col-md-10">
-                @Html.DropDownList("Division", ViewBag.Division as IEnumerable<SelectListItem>, "Select")
+                @{ Html.RenderAction("RenderDivision"); }
             </div>
         </div>
             

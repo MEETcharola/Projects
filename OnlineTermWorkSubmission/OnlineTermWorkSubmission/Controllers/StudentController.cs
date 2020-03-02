@@ -1,6 +1,7 @@
 ﻿using OnlineTermWorkSubmission.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -34,8 +35,7 @@ namespace OnlineTermWorkSubmission.Controllers
         [HttpPost]
         public ActionResult StudentLogin(Student student)
         {
-            if (ModelState.IsValid)
-            {
+           
                 var result = db.Students.Where(a => a.Student_Email == student.Student_Email & a.Student_Password == student.Student_Password).FirstOrDefault();
                 if (result != null)
                 {
@@ -48,7 +48,7 @@ namespace OnlineTermWorkSubmission.Controllers
                     ViewBag.message = "Wrong Credentials";
                 }
 
-            }
+           
             return View(student);
         }
 
@@ -73,6 +73,37 @@ namespace OnlineTermWorkSubmission.Controllers
             return View(student);
         }
 
+        [HttpGet]
+        public ActionResult UploadFile()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UploadFile(HttpPostedFileBase file)
+        {
+
+            if (Session["ID"] == null)
+            {
+                RedirectToAction("StudentLogin");
+            }
+
+            try
+            {
+                if (file.ContentLength > 0)
+                {
+                    string _FileName = Path.GetFileName(file.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _FileName);
+                    file.SaveAs(_path);
+                }
+                ViewBag.Message = "File Uploaded Successfully!!";
+                return View();
+            }
+            catch
+            {
+                ViewBag.Message = "File upload failed!!";
+                return View();
+            }
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -82,6 +113,5 @@ namespace OnlineTermWorkSubmission.Controllers
             }
             base.Dispose(disposing);
         }
-
     }
 }
