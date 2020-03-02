@@ -169,6 +169,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FacultyController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
@@ -296,10 +297,15 @@
     <Content Include="Views\Faculty\SelectStudents.cshtml" />
     <Content Include="Views\Faculty\ViewEnrolledStudent.cshtml" />
     <Content Include="Views\Faculty\EnrollStudent.cshtml" />
+    <Content Include="Views\Faculty\RenderClass.cshtml" />
+    <Content Include="Views\Faculty\RenderDivision.cshtml" />
+    <Content Include="Views\Student\UploadFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UploadFiles\" />
     <Folder Include="Views\Default\" />
+    <Folder Include="Views\File\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

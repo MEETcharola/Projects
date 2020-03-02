@@ -156,41 +156,49 @@ namespace OnlineTermWorkSubmission.Controllers
             }
             ViewBag.id = fid;
             ViewBag.sid = subId;
-            
             var branchResult = Db.Branches.Select(x => new SelectListItem() { Text = x.Branch_Name, Value = x.Branch_Id.ToString() }).ToList();
             ViewBag.Branch = branchResult;
-            foreach(var i in branchResult)
-            {
-                if (i.Selected)
-                {
-                    var classResult = Db.Classes.Where(x => x.Branch_Id.ToString() == i.Value).Select(x => new SelectListItem() { Text = x.Class_Name, Value = x.Class_Id.ToString() }).ToList();
-                    ViewBag.Class = classResult;
-                    ViewBag.Clist = Db.Classes.ToList();
-                    foreach(var j in classResult)
-                    {
-                        if(j.Selected)
-                        {
-                            ViewBag.dv = Db.Divisions.Select(x => x.Division_Id).ToList();
-                            var divisionResult = Db.Divisions.Where(x => x.Class_Id.ToString() == j.Value).Select(x => new SelectListItem() { Text = x.Division_Name, Value = x.Division_Id.ToString() }).ToList();
-                            ViewBag.Division = divisionResult;
-                        }
-                    }
-                }
-            }
             return View();
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult RenderClass()
+        {
+            var classResult = Db.Classes.Select(x => new SelectListItem() { Text = x.Class_Name, Value = x.Class_Id.ToString() }).ToList();
+            ViewBag.Class = classResult;
+            return PartialView(GetClassModel());
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult RenderDivision()
+        {
+            var divisionResult = Db.Divisions.Select(x => new SelectListItem() { Text = x.Division_Name, Value = x.Division_Id.ToString() }).ToList();
+            ViewBag.Division = divisionResult;
+            return PartialView(GetDivisionModel());
+        }
+
+        public Class GetClassModel()
+        {
+            Class classModel = new Class();
+            return (classModel);
+        }
+        public Division GetDivisionModel()
+        {
+            Division divisionModel = new Division();
+            return (divisionModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EnrollStudent(Branch branch, Class @class, Division division, int? subId, int? fid)
+        public ActionResult EnrollStudent([Bind(Include = "Branch_Name")]Branch branch, [Bind(Include = "Class_Name")]Class @class, [Bind(Include = "Division_Name")]Division division, int? subId, int? fid)
         {
             if (Session["facultyID"] == null)
             {
                 return RedirectToAction("loginfaculty");
             }
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && branch!=null && @class!=null && division!=null)
             {
-
+                
                 //var dresult = Db.Divisions.Where(x => x.Division_Name == student.Division).FirstOrDefault();
                 //var cresult = Db.Classes.Where(x => x.Class_Name == student.Class).FirstOrDefault();
                 //var breasult = Db.Branches.Where(x => x.Branch_Name == student.Branch).FirstOrDefault();
@@ -199,8 +207,9 @@ namespace OnlineTermWorkSubmission.Controllers
                 foreach(var i in result)
                 {
                     result1.Students.Add(i);
+                    Db.SaveChanges();
                 }
-                Db.SaveChanges();
+                
                 return RedirectToAction("ViewEnrolledStudent", new { sid = subId, id = fid });
             }
             ViewBag.id = fid;
