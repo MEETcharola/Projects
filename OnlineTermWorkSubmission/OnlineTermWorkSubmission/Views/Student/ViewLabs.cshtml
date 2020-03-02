@@ -1,0 +1,51 @@
+﻿@model IEnumerable<OnlineTermWorkSubmission.Models.Lab>
+
+@{
+  
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ViewLabs</title>
+</head>
+<body>
+    <p>
+       
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Subjects.subject_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lab_no)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lab_startdate)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subjects.subject_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lab_no)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lab_startdate)
+            </td>
+            <td>
+               @Html.ActionLink("Assignments", "ViewAssignments", new { lid = item.lab_id, sid = ViewBag.sid, id = ViewBag.id })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

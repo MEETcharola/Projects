@@ -1,0 +1,57 @@
+﻿@model IEnumerable<OnlineTermWorkSubmission.Models.Assignment>
+
+@{
+   
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ViewAssignments</title>
+</head>
+<body>
+    <p>
+        
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Labs.lab_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.assignment_no)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.assignment_text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.assignment_enddate)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Labs.lab_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.assignment_no)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.assignment_text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.assignment_enddate)
+            </td>
+            <td>
+                @Html.ActionLink("UploadFile", "UploadFile", new { asgId = item.assignment_id, labId = ViewBag.lid, subId = ViewBag.sid, id = ViewBag.id })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

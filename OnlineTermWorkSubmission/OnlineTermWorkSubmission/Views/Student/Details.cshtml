@@ -33,11 +33,11 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Student_Address)
+                @Html.DisplayNameFor(model => model.Roll_No)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Student_Address)
+                @Html.DisplayFor(model => model.Roll_No)
             </dd>
 
             <dt>
@@ -68,8 +68,9 @@
     </div>
     <p>
 
+        @Html.ActionLink("View Subjects", "ViewSubject", new { id = ViewBag.id }) |
         @Html.ActionLink("log out", "logout")
-        @Html.ActionLink("UploadFile", "UploadFile", "Student")
+
     </p>
 </body>
 </html>
