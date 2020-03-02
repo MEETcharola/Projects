@@ -30,10 +30,10 @@
                 @Html.DropDownListFor(model => model.Branch_Id, ViewBag.Branch as IEnumerable<SelectListItem>, "Select")
             </div>
             <div class="col-md-10">
-                @{ Html.RenderAction("RenderClass"); }
+                @{ Html.RenderAction("RenderDivision"); }
             </div>
             <div class="col-md-10">
-                @{ Html.RenderAction("RenderDivision"); }
+                @{ Html.RenderAction("RenderBatch"); }
             </div>
         </div>
             
