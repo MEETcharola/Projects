@@ -14,8 +14,8 @@
 <body>
     <div class="jumbotron">
 
-        @Html.ActionLink("CREATE NEW LABS", "CreateLabs", new { subId = ViewBag.sid, fid = ViewBag.id }) |
-        @Html.ActionLink("Back To Subjects", "ViewSubject", new { id = ViewBag.id })
+        @Html.ActionLink("CREATE NEW LAB", "CreateLabs", new { subId = ViewBag.sid, fid = ViewBag.id }) |
+        @Html.ActionLink("BACK TO SUBJECTS", "ViewSubject", new { id = ViewBag.id })
 
     </div>
 
@@ -46,7 +46,7 @@
                 <td>
                     @Html.ActionLink("Edit", "EditLabs", new { labId = item.lab_id, subId = ViewBag.sid, fid = ViewBag.id }) |
                     @Html.ActionLink("Delete", "DeleteLabs", new { labId = item.lab_id, subId = ViewBag.sid, fid = ViewBag.id }) |
-                    @Html.ActionLink("Assignments", "ViewAssignments", new { lid = item.lab_id, sid = ViewBag.sid, id = ViewBag.id })
+                    <b>@Html.ActionLink("View Assignments", "ViewAssignments", new { lid = item.lab_id, sid = ViewBag.sid, id = ViewBag.id })</b>
                 </td>
             </tr>
         }

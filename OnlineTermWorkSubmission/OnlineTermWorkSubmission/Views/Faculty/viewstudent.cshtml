@@ -9,16 +9,20 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>ViewStudent</title>
+    
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "CreateStudent", new { fid = ViewBag.id }) |
-        @Html.ActionLink("Select Students", "SelectStudents", new { id = ViewBag.id }) |
+    <div class="jumbotron">
+        @Html.ActionLink("CREATE NEW STUDENT", "CreateStudent", new { fid = ViewBag.id }) |
+        @Html.ActionLink("SELECT STUDENTS TO ENROLL SUBJECTS", "SelectStudents", new { id = ViewBag.id }) |
         @Html.ActionLink("MAIN MENU", "Index", new { id = ViewBag.id })
-    </p>
+    </div>
+
     <table class="table">
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Roll_No)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Student_Name)
             </th>
@@ -33,9 +37,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Batch)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Roll_No)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Student_Email)
@@ -55,6 +56,9 @@
     @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Roll_No)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Student_Name)
         </td>
         <td>
@@ -68,9 +72,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Batch)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Roll_No)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Student_Email)

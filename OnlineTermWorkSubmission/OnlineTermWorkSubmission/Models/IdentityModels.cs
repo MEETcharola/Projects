@@ -38,7 +38,7 @@ namespace OnlineTermWorkSubmission.Models
         public virtual DbSet<Lab> Labs { get; set; }
 
         public virtual DbSet<Assignment> Assignments { get; set; }
-
+        
         public virtual DbSet<Branch> Branches { get; set; }
 
         public virtual DbSet<Division> Divisions { get; set; }
@@ -93,7 +93,7 @@ namespace OnlineTermWorkSubmission.Models
 
 
     }
-    
+
     public class Branch
     {
         [Key]

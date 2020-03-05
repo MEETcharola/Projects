@@ -41,7 +41,7 @@
             <td>
                 @Html.ActionLink("Edit", "EditSubject", new { subId = item.subject_id, fid = ViewBag.id }) |
                 @Html.ActionLink("Delete", "DeleteSubject", new { subId = item.subject_id, fid = ViewBag.id }) |
-                @Html.ActionLink("Labs", "ViewLabs", new { sid = item.subject_id, id = ViewBag.id })
+                <b>@Html.ActionLink("View Labs", "ViewLabs", new { sid = item.subject_id, id = ViewBag.id })</b>
             </td>
         </tr>
         }

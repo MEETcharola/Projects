@@ -12,7 +12,7 @@
 </head>
 <body>
     <div>
-        @Html.DropDownListFor(m=>m.Batch_Id, ViewBag.Batch as IEnumerable<SelectListItem>, "Select")
+        @Html.DropDownList("Batch_Id", ViewBag.Batch as IEnumerable<SelectListItem>, "Select Batch")
     </div>
 </body>
 </html>

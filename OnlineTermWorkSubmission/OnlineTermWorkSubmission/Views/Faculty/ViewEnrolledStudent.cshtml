@@ -12,11 +12,16 @@
     <title>ViewEnrolledStudent</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Enroll Students", "EnrollStudent", new { subId = ViewBag.sid, fid = ViewBag.id })
-    </p>
+    <div class="jumbotron">
+        @Html.ActionLink("ENROLL STUDENTS", "EnrollStudent", new { semNo = ViewBag.semno, subId = ViewBag.sid, fid = ViewBag.id }) |
+        @Html.ActionLink("DELETE ENROLLED STUDENTS", "DeleteEnrolledStudent", new { semNo = ViewBag.semno, subId = ViewBag.sid, fid = ViewBag.id }) |
+        @Html.ActionLink("BACK TO SUBJECTS LIST", "SelectStudents", new { id = ViewBag.id })
+    </div>
     <table class="table">
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Roll_No)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Student_Name)
             </th>
@@ -32,15 +37,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.Semester)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Roll_No)
-            </th>
-
             <th></th>
         </tr>
     
     @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Roll_No)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Student_Name)
         </td>
@@ -57,12 +61,7 @@
             @Html.DisplayFor(modelItem => item.Semester)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Roll_No)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Student_Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Student_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Student_Id })
+            @Html.ActionLink("Delete", "DeleteIndivisualEnrolledStudent", new { id = item.Student_Id, semNo = ViewBag.semno, subId = ViewBag.sid, fid = ViewBag.id })
         </td>
     </tr>
     }

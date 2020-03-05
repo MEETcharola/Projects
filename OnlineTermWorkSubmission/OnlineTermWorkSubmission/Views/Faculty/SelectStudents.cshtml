@@ -12,9 +12,9 @@
     <title>SelectStudents</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Back To Students", "ViewStudent", new { id = ViewBag.id })
-    </p>
+    <div class="jumbotron">
+        @Html.ActionLink("BACK TO STUDENTS LIST", "ViewStudent", new { id = ViewBag.id })
+    </div>
     <table class="table">
         <tr>
             <th>
@@ -36,7 +36,7 @@
                     @Html.DisplayFor(modelItem => item.semester)
                 </td>
                 <td>
-                    @Html.ActionLink("View Enrolled Students", "ViewEnrolledStudent", new { sid = item.subject_id, id = ViewBag.id })
+                    <b>@Html.ActionLink("View Enrolled Students", "ViewEnrolledStudent", new { semNo = item.semester, sid = item.subject_id, id = ViewBag.id })</b>
                 </td>
             </tr>
         }

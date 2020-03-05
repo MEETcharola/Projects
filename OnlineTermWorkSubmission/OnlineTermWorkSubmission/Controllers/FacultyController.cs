@@ -63,7 +63,7 @@ namespace OnlineTermWorkSubmission.Controllers
                 return RedirectToAction("LoginFaculty");
             }
             ViewBag.id = id;
-            return View(Db.Students.ToList());
+            return View(Db.Students.ToList().OrderBy(x=>x.Roll_No));
         }
 
         public ActionResult CreateStudent(int? fid)
@@ -116,7 +116,7 @@ namespace OnlineTermWorkSubmission.Controllers
 
         [HttpPost, ActionName("DeleteStudent")]
         [ValidateAntiForgeryToken]
-        public ActionResult Deleteconfirmedstudent(int id, int? fid)
+        public ActionResult DeleteConfirmedStudent(int id, int? fid)
         {
             if (Session["facultyID"] == null)
             {
@@ -144,20 +144,17 @@ namespace OnlineTermWorkSubmission.Controllers
             {
                 return HttpNotFound();
             }
-            TempData["StudentID"] = id;
-            TempData.Keep();
             ViewBag.id = fid;
             return View(student);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditStudent([Bind(Exclude = "Student_Id, Subjects")] Student student, int? fid)
+        public ActionResult EditStudent([Bind(Exclude = "Student_Id, Subjects")] Student student, int? id, int? fid)
         {
             if (ModelState.IsValid)
             {
-                int StudentId = (int)TempData["StudentID"];
-                var result = Db.Students.Where(x => x.Student_Id == StudentId).FirstOrDefault();
+                var result = Db.Students.Where(x => x.Student_Id == id).FirstOrDefault();
                 if (result != null)
                 {
                     result.Student_Name = student.Student_Name;
@@ -189,11 +186,10 @@ namespace OnlineTermWorkSubmission.Controllers
                 return RedirectToAction("LoginFaculty");
             }
             ViewBag.id = id;
-            return View(Db.Subjects.Where(x => x.Faculties.Any(y => y.faculty_id == id)).ToList());
+            return View(Db.Subjects.Where(x => x.Faculties.Any(y => y.faculty_id == id)).OrderBy(x => x.semester).ToList());
         }
 
-
-        public ActionResult ViewEnrolledStudent(int? sid, int? id)
+        public ActionResult ViewEnrolledStudent(int? semno, int? sid, int? id)
         {
             if (Session["facultyID"] == null)
             {
@@ -201,10 +197,11 @@ namespace OnlineTermWorkSubmission.Controllers
             }
             ViewBag.id = id;
             ViewBag.sid = sid;
-            return View(Db.Students.Where(x => x.Subjects.Any(y => y.subject_id == sid)).ToList());
+            ViewBag.semno = semno;
+            return View(Db.Students.Where(x => x.Subjects.Any(y => y.subject_id == sid) && x.Semester == semno).ToList().OrderBy(x=>x.Roll_No));
         }
 
-        public ActionResult EnrollStudent(int? subId, int? fid)
+        public ActionResult EnrollStudent(int? semNo, int? subId, int? fid)
         {
             if (Session["facultyID"] == null)
             {
@@ -212,55 +209,28 @@ namespace OnlineTermWorkSubmission.Controllers
             }
             ViewBag.id = fid;
             ViewBag.sid = subId;
-            var branchResult = Db.Branches.Select(x => new SelectListItem() { Text = x.Branch_Name, Value = x.Branch_Id.ToString() }).ToList();
-            ViewBag.Branch = branchResult;
+            ViewBag.semno = semNo;
             return View();
         }
 
-        [ChildActionOnly]
-        public PartialViewResult RenderDivision()
-        {
-            var divisionResult = Db.Divisions.Select(x => new SelectListItem() { Text = x.Division_Name, Value = x.Division_Id.ToString() }).ToList();
-            ViewBag.Division = divisionResult;
-            return PartialView(GetDivisionModel());
-        }
-
-        [ChildActionOnly]
-        public PartialViewResult RenderBatch()
-        {
-            var batchResult = Db.Batches.Select(x => new SelectListItem() { Text = x.Batch_Name, Value = x.Batch_Id.ToString() }).ToList();
-            ViewBag.Batch = batchResult;
-            return PartialView(GetBatchModel());
-        }
-
-        public Division GetDivisionModel()
-        {
-            Division divisionModel = new Division();
-            return (divisionModel);
-        }
-
-        public Batch GetBatchModel()
-        {
-            Batch batchModel = new Batch();
-            return (batchModel);
-        }
-
-
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EnrollStudent([Bind(Include = "Branch_Name")]Branch branch, [Bind(Include = "Division_Name")]Division division, [Bind(Include = "Batch_Name")]Batch batch, int? subId, int? fid)
+        public ActionResult EnrollStudent(FormCollection values, int? semNo, int? subId, int? fid)
         {
             if (Session["facultyID"] == null)
             {
                 return RedirectToAction("loginfaculty");
             }
-            if (ModelState.IsValid && branch!=null && division!=null && batch!=null)
+            if (ModelState.IsValid)
             {
+                var branchId = values["Branch_Id"];
+                var divisionId = values["Division_Id"];
+                var batchId = values["Batch_Id"];
+
+                var brcResult = Db.Branches.Where(x => x.Branch_Id.ToString() == branchId).Select(x=>x.Branch_Name).FirstOrDefault();
+                var divResult = Db.Divisions.Where(x => x.Division_Id.ToString() == divisionId).Select(x=>x.Division_Name).FirstOrDefault();
+                var btcResult = Db.Batches.Where(x => x.Batch_Id.ToString() == batchId).Select(x=>x.Batch_Name).FirstOrDefault();
                 
-                //var dresult = Db.Divisions.Where(x => x.Division_Name == student.Division).FirstOrDefault();
-                //var cresult = Db.Classes.Where(x => x.Class_Name == student.Class).FirstOrDefault();
-                //var breasult = Db.Branches.Where(x => x.Branch_Name == student.Branch).FirstOrDefault();
-                var result = Db.Students.Where(x => x.Branch == branch.Branch_Name && x.Division == division.Division_Name && x.Batch == batch.Batch_Name).ToList();
+                var result = Db.Students.Where(x => x.Branch == brcResult && x.Division == divResult && x.Batch == btcResult && x.Semester == semNo).ToList();
                 Subject result1 = Db.Subjects.Find(subId);
                 foreach(var i in result)
                 {
@@ -268,11 +238,96 @@ namespace OnlineTermWorkSubmission.Controllers
                     Db.SaveChanges();
                 }
                 
-                return RedirectToAction("ViewEnrolledStudent", new { sid = subId, id = fid });
+                return RedirectToAction("ViewEnrolledStudent", new { semno = semNo, sid = subId, id = fid });
             }
             ViewBag.id = fid;
             ViewBag.sid = subId;
+            ViewBag.semno = semNo;
             return View();
+        }
+
+        public ActionResult DeleteEnrolledStudent(int? semNo, int? subId, int? fid)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            ViewBag.id = fid;
+            ViewBag.sid = subId;
+            ViewBag.semno = semNo;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DeleteEnrolledStudent(FormCollection values, int? semNo, int? subId, int? fid)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("loginfaculty");
+            }
+            if (ModelState.IsValid)
+            {
+                var branchId = values["Branch_Id"];
+                var divisionId = values["Division_Id"];
+                var batchId = values["Batch_Id"];
+
+                var brcResult = Db.Branches.Where(x => x.Branch_Id.ToString() == branchId).Select(x => x.Branch_Name).FirstOrDefault();
+                var divResult = Db.Divisions.Where(x => x.Division_Id.ToString() == divisionId).Select(x => x.Division_Name).FirstOrDefault();
+                var btcResult = Db.Batches.Where(x => x.Batch_Id.ToString() == batchId).Select(x => x.Batch_Name).FirstOrDefault();
+
+                var result = Db.Students.Where(x => x.Branch == brcResult && x.Division == divResult && x.Batch == btcResult && x.Semester == semNo).ToList();
+                Subject result1 = Db.Subjects.Find(subId);
+                foreach (var i in result)
+                {
+                    result1.Students.Remove(i);
+                    Db.SaveChanges();
+                }
+
+                return RedirectToAction("ViewEnrolledStudent", new { semno = semNo, sid = subId, id = fid });
+            }
+            ViewBag.id = fid;
+            ViewBag.sid = subId;
+            ViewBag.semno = semNo;
+            return View();
+        }
+
+        public ActionResult DeleteIndivisualEnrolledStudent(int? id, int? semNo, int? subId, int? fid)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Student student = Db.Students.Find(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.id = fid;
+            ViewBag.sid = subId;
+            ViewBag.semno = semNo;
+            return View(student);
+        }
+
+        [HttpPost, ActionName("DeleteIndivisualEnrolledStudent")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmedIndivisualStudent(int id, int? semNo, int? subId, int? fid)
+        {
+            if (Session["facultyID"] == null)
+            {
+                return RedirectToAction("LoginFaculty");
+            }
+            Student student = Db.Students.Find(id);
+            Subject subject = Db.Subjects.Find(subId);
+            student.Subjects.Remove(subject);
+            Db.SaveChanges();
+            ViewBag.id = fid;
+            ViewBag.sid = subId;
+            ViewBag.semno = semNo;
+            return RedirectToAction("ViewEnrolledStudent", new { semno = semNo, sid = subId, id = fid });
         }
 
 
@@ -286,7 +341,7 @@ namespace OnlineTermWorkSubmission.Controllers
                 return RedirectToAction("LoginFaculty");
             }
             ViewBag.id = id;
-            return View(Db.Subjects.Where(x => x.Faculties.Any(y => y.faculty_id == id)).ToList());
+            return View(Db.Subjects.Where(x => x.Faculties.Any(y => y.faculty_id == id)).ToList().OrderBy(x=>x.semester));
         }
 
         public ActionResult CreateSubject(int? fid)
@@ -340,7 +395,7 @@ namespace OnlineTermWorkSubmission.Controllers
 
         [HttpPost, ActionName("DeleteSubject")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmedSubject(int subId, int? fid)
+        public ActionResult DeleteConfirmedSubject(int? subId, int? fid)
         {
             if (Session["facultyID"] == null)
             {
@@ -368,20 +423,17 @@ namespace OnlineTermWorkSubmission.Controllers
             {
                 return HttpNotFound();
             }
-            TempData["SubjectID"] = subId;
-            TempData.Keep();
             ViewBag.id = fid;
             return View(subject);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditSubject([Bind(Include = "subject_name,semester")] Subject subject, int? fid)
+        public ActionResult EditSubject([Bind(Include = "subject_name,semester")] Subject subject, int? subId, int? fid)
         {
             if (ModelState.IsValid)
             {
-                int SubjectId = (int)TempData["SubjectID"];
-                var result = Db.Subjects.Where(x => x.subject_id == SubjectId).FirstOrDefault();
+                var result = Db.Subjects.Where(x => x.subject_id == subId).FirstOrDefault();
                 if (result != null)
                 {
                     result.subject_name = subject.subject_name;
@@ -407,7 +459,7 @@ namespace OnlineTermWorkSubmission.Controllers
             ViewBag.id = id;
             ViewBag.sid = sid;
             ViewBag.subname = Db.Subjects.Where(x => x.subject_id == sid).Select(x => x.subject_name).FirstOrDefault();
-            return View(Db.Labs.Where(x => x.subject_id == sid).ToList());
+            return View(Db.Labs.Where(x => x.subject_id == sid).ToList().OrderBy(x=>x.lab_no));
         }
 
         public ActionResult CreateLabs(int? subId, int? fid)
@@ -493,8 +545,6 @@ namespace OnlineTermWorkSubmission.Controllers
             {
                 return HttpNotFound();
             }
-            TempData["LabID"] = labId;
-            TempData.Keep();
             ViewBag.id = fid;
             ViewBag.sid = subId;
             return View(lab);
@@ -502,12 +552,11 @@ namespace OnlineTermWorkSubmission.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditLabs([Bind(Include = "lab_no, lab_startdate")] Lab lab, int? subId, int? fid)
+        public ActionResult EditLabs([Bind(Include = "lab_no, lab_startdate")] Lab lab, int? labId, int? subId, int? fid)
         {
             if (ModelState.IsValid)
             {
-                int LabId = (int)TempData["LabID"];
-                var result = Db.Labs.Where(x => x.lab_id == LabId).FirstOrDefault();
+                var result = Db.Labs.Where(x => x.lab_id == labId).FirstOrDefault();
                 if (result != null)
                 {
                     result.lab_no = lab.lab_no;
@@ -535,7 +584,7 @@ namespace OnlineTermWorkSubmission.Controllers
             ViewBag.sid = sid;
             ViewBag.lid = lid;
             ViewBag.labno = Db.Labs.Where(x => x.lab_id == lid).Select(x => x.lab_no).FirstOrDefault();
-            return View(Db.Assignments.Where(x => x.lab_id == lid).ToList());
+            return View(Db.Assignments.Where(x => x.lab_id == lid).ToList().OrderBy(x=>x.assignment_no));
         }
 
         public ActionResult CreateAssignments(int? labId, int? subId, int? fid)
@@ -626,8 +675,6 @@ namespace OnlineTermWorkSubmission.Controllers
             {
                 return HttpNotFound();
             }
-            TempData["AsgID"] = asgId;
-            TempData.Keep();
             ViewBag.id = fid;
             ViewBag.sid = subId;
             ViewBag.lid = labId;
@@ -636,12 +683,11 @@ namespace OnlineTermWorkSubmission.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditAssignments([Bind(Include = "assignment_no,assignment_text,assignment_enddate")] Assignment assignment, int? labId, int? subId, int? fid)
+        public ActionResult EditAssignments([Bind(Include = "assignment_no,assignment_text,assignment_enddate")] Assignment assignment, int? asgId, int? labId, int? subId, int? fid)
         {
             if (ModelState.IsValid)
             {
-                int AsgId = (int)TempData["AsgID"];
-                var result = Db.Assignments.Where(x => x.assignment_id == AsgId).FirstOrDefault();
+                var result = Db.Assignments.Where(x => x.assignment_id == asgId).FirstOrDefault();
                 if (result != null)
                 {
                     result.assignment_no = assignment.assignment_no;
@@ -658,10 +704,58 @@ namespace OnlineTermWorkSubmission.Controllers
             return View(assignment);
         }
 
-        
 
+
+        //Partial Views
+
+        [ChildActionOnly]
+        public PartialViewResult RenderBranch()
+        {
+            var branchResult = Db.Branches.Select(x => new SelectListItem() { Text = x.Branch_Name, Value = x.Branch_Id.ToString() }).ToList();
+            ViewBag.Branch = branchResult;
+            return PartialView(GetBranchModel());
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult RenderDivision()
+        {
+            var divisionResult = Db.Divisions.Select(x => new SelectListItem() { Text = x.Division_Name, Value = x.Division_Id.ToString() }).ToList();
+            ViewBag.Division = divisionResult;
+            return PartialView(GetDivisionModel());
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult RenderBatch()
+        {
+            var batchResult = Db.Batches.Select(x => new SelectListItem() { Text = x.Batch_Name, Value = x.Batch_Id.ToString() }).ToList();
+            ViewBag.Batch = batchResult;
+            return PartialView(GetBatchModel());
+        }
+
+
+
+        //GetModels
+
+        public Branch GetBranchModel()
+        {
+            Branch branchModel = new Branch();
+            return (branchModel);
+        }
+
+        public Division GetDivisionModel()
+        {
+            Division divisionModel = new Division();
+            return (divisionModel);
+        }
+
+        public Batch GetBatchModel()
+        {
+            Batch batchModel = new Batch();
+            return (batchModel);
+        }
 
         // Dispose
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
