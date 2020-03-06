@@ -1,18 +1,3 @@
 ﻿@model OnlineTermWorkSubmission.Models.Branch
-@{
 
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>RenderBatch</title>
-</head>
-<body>
-    <div>
-        @Html.DropDownList("Branch_Id", ViewBag.Branch as IEnumerable<SelectListItem>, "Select Branch")
-    </div>
-</body>
-</html>
+@Html.DropDownList("Branch_Id", ViewBag.Branch as IEnumerable<SelectListItem>, "Select Branch", htmlAttributes: new { style = "width: 120px" })

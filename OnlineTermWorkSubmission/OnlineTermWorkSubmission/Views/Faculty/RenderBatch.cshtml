@@ -1,18 +1,3 @@
 ﻿@model OnlineTermWorkSubmission.Models.Batch
-@{
-    
-}
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>RenderBatch</title>
-</head>
-<body>
-    <div>
-        @Html.DropDownList("Batch_Id", ViewBag.Batch as IEnumerable<SelectListItem>, "Select Batch")
-    </div>
-</body>
-</html>
+@Html.DropDownList("Batch_Id", ViewBag.Batch as IEnumerable<SelectListItem>, "Select Batch", htmlAttributes: new { style = "width: 120px" })

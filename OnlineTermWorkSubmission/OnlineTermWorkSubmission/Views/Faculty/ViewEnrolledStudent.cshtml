@@ -61,7 +61,7 @@
             @Html.DisplayFor(modelItem => item.Semester)
         </td>
         <td>
-            @Html.ActionLink("Delete", "DeleteIndivisualEnrolledStudent", new { id = item.Student_Id, semNo = ViewBag.semno, subId = ViewBag.sid, fid = ViewBag.id })
+            @Html.ActionLink("Remove", "DeleteIndivisualEnrolledStudent", new { id = item.Student_Id, semNo = ViewBag.semno, subId = ViewBag.sid, fid = ViewBag.id })
         </td>
     </tr>
     }

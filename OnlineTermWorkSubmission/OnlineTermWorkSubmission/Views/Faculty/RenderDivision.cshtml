@@ -1,18 +1,3 @@
 ﻿@model OnlineTermWorkSubmission.Models.Division
-@{
-    
-}
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>RenderClass</title>
-</head>
-<body>
-    <div>
-        @Html.DropDownList("Division_Id", ViewBag.Division as IEnumerable<SelectListItem>, "Select Division")
-    </div>
-</body>
-</html>
+@Html.DropDownList("Division_Id", ViewBag.Division as IEnumerable<SelectListItem>, "Select Division", htmlAttributes: new { style = "width: 120px" })

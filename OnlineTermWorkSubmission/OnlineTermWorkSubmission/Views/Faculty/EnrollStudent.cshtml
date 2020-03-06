@@ -18,33 +18,24 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <h4>Branch</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
+    <div class="form-horizontal container">
+        <h4>Based On Your Selection Students Will Be Enrolled!</h4>
+        <br />
 
-            <div class="col-md-10">
-                @{ Html.RenderAction("RenderBranch"); }
-            </div>
-            <div class="col-md-10">
-                @{ Html.RenderAction("RenderDivision"); }
-            </div>
-            <div class="col-md-10">
-                @{ Html.RenderAction("RenderBatch"); }
-            </div>
-        </div>
-            
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
+        @{ Html.RenderAction("RenderBranch"); } &nbsp;
+
+        @{ Html.RenderAction("RenderDivision"); } &nbsp;
+
+        @{ Html.RenderAction("RenderBatch"); } &nbsp;
+
+        <br />
+        <br />
+        <br />
+        <input type="submit" value="Enroll" class="btn btn-default" /> &nbsp; | &nbsp;
+         @Html.ActionLink("Back to List", "ViewEnrolledStudent", new { semno = ViewBag.semno, sid = ViewBag.sid, id = ViewBag.id })
+    </div>
+     
     }
 
-<div>
-    @Html.ActionLink("Back to List", "ViewEnrolledStudent", new { semno = ViewBag.semno, sid = ViewBag.sid, id = ViewBag.id })
-</div>
 </body>
 </html>
