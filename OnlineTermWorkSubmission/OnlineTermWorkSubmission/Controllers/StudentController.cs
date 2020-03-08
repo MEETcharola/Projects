@@ -122,14 +122,13 @@ namespace OnlineTermWorkSubmission.Controllers
 
 
         [HttpPost]
-        public ActionResult UploadFile(HttpPostedFileBase file, int? asgId, int lid, int sid, int? id)
+        public ActionResult UploadFile(HttpPostedFileBase file, int? asgId, int? lid, int? sid, int? id)
         {
 
             if (Session["UserID"] == null)
             {
                 RedirectToAction("StudentLogin");
             }
-
 
             ViewBag.asgId = asgId;
             ViewBag.lid = lid;
@@ -143,11 +142,9 @@ namespace OnlineTermWorkSubmission.Controllers
                     string _FileName = Path.GetFileName(file.FileName);
                     string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _FileName);
 
-                    var result = db.Assignments.Where(x => x.assignment_id == asgId).Select(x => x.assignment_enddate.ToShortDateString());
-                    //ViewBag.test = result;
-                    // DateTime result = Convert.ToDateTime(db.Assignments.Where(x => x.assignment_id == asgId).Select(x => (x.assignment_enddate.ToString("dd.MM.yyyy"))).SingleOrDefault());
-                    DateTime EndDate = Convert.ToDateTime(result, System.Globalization.CultureInfo.GetCultureInfo("hi-IN").DateTimeFormat);
-                    if (DateTime.Compare(DateTime.Now, EndDate) < 0)
+                    var result = db.Assignments.Where(x => x.assignment_id == asgId).Select(x => x.assignment_enddate).FirstOrDefault();
+                    
+                    if (DateTime.Compare(DateTime.Now, result) < 0)
                     {
                         file.SaveAs(_path);
                         ViewBag.Message = "File Uploaded Successfully!!";
