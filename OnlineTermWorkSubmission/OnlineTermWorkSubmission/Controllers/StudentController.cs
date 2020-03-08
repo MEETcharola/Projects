@@ -116,7 +116,7 @@ namespace OnlineTermWorkSubmission.Controllers
             ViewBag.lid = lid;
             ViewBag.sid = sid;
             ViewBag.id = id;
-            ViewBag.Message = "Testing";
+         
             return View();
         }
 

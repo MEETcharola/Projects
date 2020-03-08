@@ -12,9 +12,11 @@
     <title>ViewAssignments</title>
 </head>
 <body>
-    <p>
-        
-    </p>
+    <div class="jumbotron">
+
+         @Html.ActionLink("BACK TO LABS", "ViewLabs", new { sid = ViewBag.sid, id = ViewBag.id })
+
+    </div>
     <table class="table">
         <tr>
             <th>
@@ -31,27 +33,28 @@
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Labs.lab_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.assignment_no)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.assignment_text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.assignment_enddate)
-            </td>
-            <td>
-                @Html.ActionLink("UploadFile", "UploadFile", new { asgId = item.assignment_id, lid = ViewBag.lid, sid = ViewBag.sid, id = ViewBag.id })
-            </td>
-        </tr>
-    }
-    
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Labs.lab_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.assignment_no)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.assignment_text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.assignment_enddate)
+                </td>
+                <td>
+                    @Html.ActionLink("UploadFile", "UploadFile", new { asgId = item.assignment_id, lid = ViewBag.lid, sid = ViewBag.sid, id = ViewBag.id })
+                </td>
+            </tr>
+        }
+
     </table>
 </body>
 </html>
