@@ -143,7 +143,7 @@ namespace OnlineTermWorkSubmission.Controllers
                     string _FileName = Path.GetFileName(file.FileName);
                     string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _FileName);
 
-                    var result = db.Assignments.Where(x => x.assignment_id == asgId).Select(x => x.assignment_enddate.ToShortDateString());
+                    var result = db.Assignments.Where(x => x.assignment_id == asgId).Select(x => x.assignment_enddate.ToShortDateString()).FirstOrDefault();
                     //ViewBag.test = result;
                     // DateTime result = Convert.ToDateTime(db.Assignments.Where(x => x.assignment_id == asgId).Select(x => (x.assignment_enddate.ToString("dd.MM.yyyy"))).SingleOrDefault());
                     DateTime EndDate = Convert.ToDateTime(result, System.Globalization.CultureInfo.GetCultureInfo("hi-IN").DateTimeFormat);
