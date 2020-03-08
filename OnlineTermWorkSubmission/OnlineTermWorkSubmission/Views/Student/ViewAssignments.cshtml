@@ -47,7 +47,7 @@
                 @Html.DisplayFor(modelItem => item.assignment_enddate)
             </td>
             <td>
-                @Html.ActionLink("UploadFile", "UploadFile", new { asgId = item.assignment_id, labId = ViewBag.lid, subId = ViewBag.sid, id = ViewBag.id })
+                @Html.ActionLink("UploadFile", "UploadFile", new { asgId = item.assignment_id, lid = ViewBag.lid, sid = ViewBag.sid, id = ViewBag.id })
             </td>
         </tr>
     }

@@ -74,53 +74,6 @@ namespace OnlineTermWorkSubmission.Controllers
             return View(student);
         }
 
-        [HttpGet]
-        public ActionResult UploadFile()
-        {
-            ViewBag.Message = "Testing";
-            return View();
-        }
-
-
-        [HttpPost]
-        public ActionResult UploadFile(HttpPostedFileBase file, int? asgId, int? lid, int? sid, int? id)
-        {
-
-            if (Session["ID"] == null)
-            {
-                RedirectToAction("StudentLogin");
-            }
-
-            try
-            {
-                              
-                if (file.ContentLength > 0)
-                {
-                    string _FileName = Path.GetFileName(file.FileName);
-                    string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _FileName);
-
-                    var result = db.Assignments.Where(x => x.assignment_id == asgId).Select(x => x.assignment_enddate);
-                    //  var result = db.Assignments.Where(x => x.assignment_id == asgId).Select(x => (x.assignment_enddate.ToString()));
-                    DateTime EndDate = Convert.ToDateTime(result,System.Globalization.CultureInfo.GetCultureInfo("hi-IN").DateTimeFormat);
-                    if (DateTime.Compare(DateTime.Now, EndDate) < 0)
-                    {
-                        file.SaveAs(_path);
-                        ViewBag.Message = "File Uploaded Successfully!!";
-                    }
-                    else
-                    {
-                        ViewBag.Message = "sorry,You are out of date!!";
-                    }                 
-                }
-             return View();
-            }
-            catch (Exception e)
-            {
-                ViewBag.Error = e;
-                return View();
-            }
-        }
-
         public ActionResult ViewSubject(int? id)
         {
             if (Session["UserID"] == null)
@@ -149,11 +102,69 @@ namespace OnlineTermWorkSubmission.Controllers
             {
                 return RedirectToAction("LoginFaculty");
             }
-            ViewData["id"] = id;
-            ViewData["sid"] = sid;
-            ViewData["lid"] = lid;
+            ViewBag.id = id;
+            ViewBag.sid = sid;
+            ViewBag.lid = lid;
             ViewBag.labno = db.Labs.Where(x => x.lab_id == lid).Select(x => x.lab_no).FirstOrDefault();
             return View(db.Assignments.Where(x => x.lab_id == lid).ToList());
+        }
+
+        [HttpGet]
+        public ActionResult UploadFile(int? asgId, int? lid, int? sid, int? id)
+        {
+            ViewBag.asgId = asgId;
+            ViewBag.lid = lid;
+            ViewBag.sid = sid;
+            ViewBag.id = id;
+            ViewBag.Message = "Testing";
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult UploadFile(HttpPostedFileBase file, int? asgId, int lid, int sid, int? id)
+        {
+
+            if (Session["UserID"] == null)
+            {
+                RedirectToAction("StudentLogin");
+            }
+
+
+            ViewBag.asgId = asgId;
+            ViewBag.lid = lid;
+            ViewBag.sid = sid;
+            ViewBag.id = id;
+            try
+            {
+
+                if (file.ContentLength > 0)
+                {
+                    string _FileName = Path.GetFileName(file.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _FileName);
+
+                    var result = db.Assignments.Where(x => x.assignment_id == asgId).Select(x => x.assignment_enddate.ToShortDateString());
+                    //ViewBag.test = result;
+                    // DateTime result = Convert.ToDateTime(db.Assignments.Where(x => x.assignment_id == asgId).Select(x => (x.assignment_enddate.ToString("dd.MM.yyyy"))).SingleOrDefault());
+                    DateTime EndDate = Convert.ToDateTime(result, System.Globalization.CultureInfo.GetCultureInfo("hi-IN").DateTimeFormat);
+                    if (DateTime.Compare(DateTime.Now, EndDate) < 0)
+                    {
+                        file.SaveAs(_path);
+                        ViewBag.Message = "File Uploaded Successfully!!";
+                    }
+                    else
+                    {
+                        ViewBag.Message = "sorry,You are out of date!!";
+                    }
+
+                }
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = e;
+                return View();
+            }
         }
 
         protected override void Dispose(bool disposing)
