@@ -5,7 +5,7 @@
 
 <h2>UploadFile</h2>
 
-@using (Html.BeginForm("UploadFile", "Student", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("UploadFile", "Student", new { asgId = ViewBag.asgId, lid = ViewBag.lid, sid = ViewBag.sid, id = ViewBag.id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 
 <div>
