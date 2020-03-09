@@ -136,11 +136,43 @@ namespace OnlineTermWorkSubmission.Controllers
             ViewBag.id = id;
             try
             {
+                var subname = db.Subjects.Where(x => x.subject_id == sid).Select(x => x.subject_name).FirstOrDefault();
+                string labno = db.Labs.Where(x => x.lab_id == lid).Select(x => x.lab_no).FirstOrDefault().ToString();
+                string assignmentno = db.Assignments.Where(x => x.assignment_id == asgId).Select(x => x.assignment_no).FirstOrDefault().ToString();
 
                 if (file.ContentLength > 0)
                 {
                     string _FileName = Path.GetFileName(file.FileName);
-                    string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _FileName);
+                    string subjectFolder = Server.MapPath("~/UploadFiles/"+"_"+subname);
+                    string labFolder = Path.Combine(subjectFolder + "/_LabNo_" + labno);
+                    string assignmentFolder = Path.Combine(labFolder + "/_AssignmentNo_" + assignmentno);
+                    
+
+                    if (!Directory.Exists(subjectFolder))
+                    {
+                        //If  (Subjec Folder) does not exists. Create it,lab adnd assignment folders.
+                        Directory.CreateDirectory(subjectFolder);
+                        
+                        Directory.CreateDirectory(labFolder);
+
+                        Directory.CreateDirectory(assignmentFolder);
+
+                    }
+                    else if(!Directory.Exists(labFolder))
+                    {
+                        //If  (Lab Folder) does not exists. Create it and assignment folders.
+                        Directory.CreateDirectory(labFolder);
+
+                        Directory.CreateDirectory(assignmentFolder);
+                    }
+                    else if(!Directory.Exists(assignmentFolder))
+                    {
+                        //If  (Assignment Folder) does not exists. Create it.
+
+                        Directory.CreateDirectory(assignmentFolder);
+                    }
+
+                    string _path = Path.Combine(assignmentFolder, _FileName);
 
                     var result = db.Assignments.Where(x => x.assignment_id == asgId).Select(x => x.assignment_enddate).FirstOrDefault();
                     
