@@ -26,7 +26,7 @@ namespace OnlineTermWorkSubmission.Controllers
 
         public ActionResult Logout()
         {
-            Session["UID"] = null;
+            Session["ID"] = null;
             Session["UserID"] = null;
             Session["adminID"] = null;
             return RedirectToAction("StudentLogin");
@@ -100,7 +100,7 @@ namespace OnlineTermWorkSubmission.Controllers
         {
             if (Session["UserID"] == null)
             {
-                return RedirectToAction("LoginFaculty");
+                return RedirectToAction("StudentLogin");
             }
             ViewBag.id = id;
             ViewBag.sid = sid;
@@ -112,6 +112,11 @@ namespace OnlineTermWorkSubmission.Controllers
         [HttpGet]
         public ActionResult UploadFile(int? asgId, int? lid, int? sid, int? id)
         {
+            if (Session["UserID"] == null)
+            {
+                RedirectToAction("StudentLogin");
+            }
+
             ViewBag.asgId = asgId;
             ViewBag.lid = lid;
             ViewBag.sid = sid;
@@ -152,7 +157,7 @@ namespace OnlineTermWorkSubmission.Controllers
                     }
                     else
                     {
-                        ViewBag.Message = "sorry,You are out of date!!";
+                        ViewBag.Message = "sorry,You are out of deadline!!";
                     }
 
                 }

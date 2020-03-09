@@ -58,15 +58,15 @@ namespace OnlineTermWorkSubmission.Models
         [Display(Name = "Id")]
         public int Student_Id { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Name is required.")]
         [Display(Name = "Student Name")]
         public string Student_Name { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Branch is required.")]
         [Display(Name = "Branch")]
         public string Branch { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Division is required.")]
         [Display(Name = "Division")]
         public string Division { get; set; }
         
@@ -74,34 +74,37 @@ namespace OnlineTermWorkSubmission.Models
         [Display(Name = "Batch")]
         public string Batch { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "RollNo is required.")]
         [Range(1,200)]
         [Display(Name = "Roll No")]
         public int Roll_No { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Semester is required.")]
         [Range(1,8)]
         [Display(Name = "Semester")]
         public int Semester { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Email id is required.")]
         [EmailAddress]
         [Display(Name = "Email Id")]
+        [RegularExpression("^[A-Za-z0-9._%+-]*@[A-Za-z0-9.-]*\\.[A-Za-z0-9-]{2,}$",ErrorMessage = "Email is required and must be properly formatted.")]
         public string Student_Email { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Phone no is required.")]
         [Phone]
         [Display(Name = "Phone Number")]
+        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
         public string Student_Contact { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Birth date is required.")]
         [DataType(DataType.Date)]
         [Display(Name = "Date Of Birth")]
         public DateTime Student_Dob { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Password is required.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
+        [RegularExpression(@"(?-i)(?=^.{8,}$)((?!.*\s)(?=.*[A-Z])(?=.*[a-z]))(?=(1)(?=.*\d)|.*[^A-Za-z0-9])^.*$", ErrorMessage = "Password must have at least 8 characters long. - At least 1 uppercase, AND at least 1 lowercase - At least 1 digit OR at least 1 alphanumeric. - No spaces.")]
         public string Student_Password { get; set; }
 
         public virtual ICollection<Subject> Subjects { get; set; }
@@ -149,28 +152,32 @@ namespace OnlineTermWorkSubmission.Models
         [Display(Name = "Id")]
         public int faculty_id { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Name is required.")]
         [Display(Name = "Facluty Name")]
         public string faculty_name { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Email id is required.")]
         [EmailAddress]
         [Display(Name = "Email Id")]
+        [RegularExpression("^[A-Za-z0-9._%+-]*@[A-Za-z0-9.-]*\\.[A-Za-z0-9-]{2,}$", ErrorMessage = "Email is required and must be properly formatted.")]
         public string faculty_email { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Phone no is required.")]
         [Display(Name = "Phone Number")]
         [Phone]
+        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
         public string faculty_contact { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Birth date is required.")]
         [DataType(DataType.Date)]
         [Display(Name = "Date Of Birth")]
         public DateTime faculty_dob { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Password is required.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
+        [RegularExpression(@"(?-i)(?=^.{8,}$)((?!.*\s)(?=.*[A-Z])(?=.*[a-z]))(?=(1)(?=.*\d)|.*[^A-Za-z0-9])^.*$", ErrorMessage = "Password must have at least 8 characters long. - At least 1 uppercase, AND at least 1 lowercase - At least 1 digit OR at least 1 alphanumeric. - No spaces.")]
+
         public string faculty_password { get; set; }
 
         public virtual ICollection<Subject> Subjects { get; set; }
@@ -183,11 +190,11 @@ namespace OnlineTermWorkSubmission.Models
         [Display(Name = "Id")]
         public int subject_id { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Name is required.")]
         [Display(Name = "Subject Name")]
         public string subject_name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Semester is required.")]
         [Range(1,8)]
         [Display(Name = "Semester")]
         public int semester { get; set; }
@@ -205,12 +212,12 @@ namespace OnlineTermWorkSubmission.Models
         [Display(Name = "Id")]
         public int lab_id { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "LabNo is required.")]
         [Range(1,50)]
         [Display(Name = "Lab No")]
         public int lab_no { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Start date is required.")]
         [DataType(DataType.Date)]
         [Display(Name = "Date")]
         public DateTime lab_startdate { get; set; }
@@ -230,17 +237,17 @@ namespace OnlineTermWorkSubmission.Models
         [Display(Name = "Id")]
         public int assignment_id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Assignment no is required.")]
         [Range(1,50)]
         [Display(Name = "Assignment No")]
         public int assignment_no { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Description can't be empty.")]
         [DataType(DataType.MultilineText)]
         [Display(Name = "Description")]
         public string assignment_text { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Assignment enddate is required.")]
         [DataType(DataType.Date)]
         [Display(Name = "End Date")]
         public DateTime assignment_enddate { get; set; }
