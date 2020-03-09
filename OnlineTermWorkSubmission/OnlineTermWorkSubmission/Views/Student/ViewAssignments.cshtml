@@ -14,14 +14,14 @@
 <body>
     <div class="jumbotron">
 
-         @Html.ActionLink("BACK TO LABS", "ViewLabs", new { sid = ViewBag.sid, id = ViewBag.id })
+        @Html.ActionLink("BACK TO LABS", "ViewLabs", new { sid = ViewBag.sid, id = ViewBag.id })
 
+    </div>
+    <div class="h4">
+        <b>@Html.DisplayNameFor(model => model.Labs.lab_no) : @ViewBag.labno</b>
     </div>
     <table class="table">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Labs.lab_id)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.assignment_no)
             </th>
@@ -38,9 +38,6 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Labs.lab_id)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.assignment_no)
                 </td>
                 <td>
@@ -50,7 +47,7 @@
                     @Html.DisplayFor(modelItem => item.assignment_enddate)
                 </td>
                 <td>
-                    @Html.ActionLink("UploadFile", "UploadFile", new { asgId = item.assignment_id, lid = ViewBag.lid, sid = ViewBag.sid, id = ViewBag.id })
+                    <b>@Html.ActionLink("Upload File", "UploadFile", new { asgId = item.assignment_id, lid = ViewBag.lid, sid = ViewBag.sid, id = ViewBag.id })</b>
                 </td>
             </tr>
         }

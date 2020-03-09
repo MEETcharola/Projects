@@ -12,7 +12,11 @@
     <title>ViewSubject</title>
 </head>
 <body>
-    
+    <div class="jumbotron">
+
+        @Html.ActionLink("BACK TO DETAILS", "Details", new { id = ViewBag.id })
+
+    </div>
     <table class="table">
         <tr>
             <th>
@@ -33,7 +37,7 @@
                 @Html.DisplayFor(modelItem => item.semester)
             </td>
             <td>
-                @Html.ActionLink("Labs", "ViewLabs", new { sid = item.subject_id, id = ViewBag.id })
+                <b>@Html.ActionLink("View Labs", "ViewLabs", new { sid = item.subject_id, id = ViewBag.id })</b>
             </td>
         </tr>
     }

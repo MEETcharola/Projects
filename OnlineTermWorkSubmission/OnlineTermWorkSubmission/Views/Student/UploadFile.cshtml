@@ -3,19 +3,22 @@
     ViewBag.Title = "UploadFile";
 }
 
-<h2>UploadFile</h2>
+<h3>Upload File</h3>
 
 @using (Html.BeginForm("UploadFile", "Student", new { asgId = ViewBag.asgId, lid = ViewBag.lid, sid = ViewBag.sid, id = ViewBag.id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 
 <div>
+    <br />
     @Html.TextBox("file", "", new { type = "file" }) <br />
 
     <input type="submit" value="Upload" />
 
     @ViewBag.Message |  @ViewBag.Error
 
-    @Html.ActionLink("Logout", "Logout")
+    <br />
+    <br />
+    @Html.ActionLink("Back", "ViewAssignments", new { lid = ViewBag.lid, sid = ViewBag.sid, id = ViewBag.id })
 
 </div>
 
