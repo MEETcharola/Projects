@@ -177,7 +177,6 @@ namespace OnlineTermWorkSubmission.Models
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         [RegularExpression(@"(?-i)(?=^.{8,}$)((?!.*\s)(?=.*[A-Z])(?=.*[a-z]))(?=(1)(?=.*\d)|.*[^A-Za-z0-9])^.*$", ErrorMessage = "Password must have at least 8 characters long. - At least 1 uppercase, AND at least 1 lowercase - At least 1 digit OR at least 1 alphanumeric. - No spaces.")]
-
         public string faculty_password { get; set; }
 
         public virtual ICollection<Subject> Subjects { get; set; }

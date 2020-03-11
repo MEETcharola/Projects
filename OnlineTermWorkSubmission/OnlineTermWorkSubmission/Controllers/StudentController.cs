@@ -192,7 +192,7 @@ namespace OnlineTermWorkSubmission.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.Error = "Select any file fisrt ";
+                ViewBag.Error = "Select any file first ";
                 return View();
             }
         }
