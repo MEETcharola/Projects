@@ -1,0 +1,14 @@
+D:\Projects\BikeDekho_CRUD\BikeDekho_CRUD\bin\Debug\BikeDekho_CRUD.dll.config
+D:\Projects\BikeDekho_CRUD\BikeDekho_CRUD\bin\Debug\BikeDekho_CRUD.dll
+D:\Projects\BikeDekho_CRUD\BikeDekho_CRUD\bin\Debug\BikeDekho_CRUD.pdb
+D:\Projects\BikeDekho_CRUD\BikeDekho_CRUD\obj\Debug\BikeDekho_CRUD.dll
+D:\Projects\BikeDekho_CRUD\BikeDekho_CRUD\obj\Debug\BikeDekho_CRUD.pdb
+D:\Projects\BikeDekho_CRUD\BikeDekho_CRUD\bin\Debug\EntityFramework.dll
+D:\Projects\BikeDekho_CRUD\BikeDekho_CRUD\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\BikeDekho_CRUD\BikeDekho_CRUD\bin\Debug\EntityFramework.xml
+D:\Projects\BikeDekho_CRUD\BikeDekho_CRUD\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\BikeDekho_CRUD\BikeDekho_CRUD\obj\Debug\BikeDekho_CRUD.csproj.CopyComplete
+D:\Projects\BikeDekho_CRUD\BikeDekho_CRUD\obj\Debug\BikeDekho_CRUD.Migrations.init.resources
+D:\Projects\BikeDekho_CRUD\BikeDekho_CRUD\obj\Debug\BikeDekho_CRUD.csproj.GenerateResource.cache
+D:\Projects\BikeDekho_CRUD\BikeDekho_CRUD\obj\Debug\BikeDekho_CRUD.Migrations.init170420.resources
+D:\Projects\BikeDekho_CRUD\BikeDekho_CRUD\obj\Debug\BikeDekho_CRUD.csprojAssemblyReference.cache
