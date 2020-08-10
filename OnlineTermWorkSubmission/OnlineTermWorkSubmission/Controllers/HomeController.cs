@@ -11,15 +11,11 @@ namespace OnlineTermWorkSubmission.Controllers
         
         public ActionResult About()
         {
-            ViewBag.Message = "Our application description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Our contact page.";
-
             return View();
         }
     }

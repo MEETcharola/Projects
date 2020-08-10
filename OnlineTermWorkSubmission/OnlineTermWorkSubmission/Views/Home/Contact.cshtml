@@ -1,16 +1,16 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
-
-<address>
-    Dharmsinh Desai University<br />
-    College Road, Nadiad, Gujarat, India<br />
-    <abbr title="Phone">P: 8141589785</abbr>
-</address>
-
-
-<div class="form-actions no-color">
-    @Html.ActionLink("Home", "Logout", "Student")
+<h2><b>@ViewBag.Title</b></h2>
+<div class="jumbotron">
+    <address>
+        <p><b>
+        Dharmsinh Desai University<br />
+        College Road, Nadiad, Gujarat, India<br />
+        <abbr title="Phone">P: 8141589785</abbr>
+        </b></p>
+    </address>
 </div>
+    <div class="form-actions no-color">
+        @Html.ActionLink("Home", "Logout", "Student")
+    </div>

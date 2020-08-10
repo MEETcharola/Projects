@@ -11,7 +11,7 @@ namespace OnlineTermWorkSubmission.Controllers
 {
     public class StudentController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext Db = new ApplicationDbContext();
         // GET: Student
 
         public ActionResult StudentLogin()
@@ -23,7 +23,7 @@ namespace OnlineTermWorkSubmission.Controllers
         public ActionResult StudentLogin(Student student)
         {
 
-            var result = db.Students.Where(a => a.Student_Email == student.Student_Email & a.Student_Password == student.Student_Password).FirstOrDefault();
+            var result = Db.Students.Where(a => a.Student_Email == student.Student_Email & a.Student_Password == student.Student_Password).FirstOrDefault();
             if (result != null)
             {
                 Session["studentID"] = result.Student_Email;
@@ -60,7 +60,7 @@ namespace OnlineTermWorkSubmission.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Student student = db.Students.Find(id);
+            Student student = Db.Students.Find(id);
             ViewBag.id = id;
             if (student == null)
             {
@@ -76,7 +76,7 @@ namespace OnlineTermWorkSubmission.Controllers
                 return RedirectToAction("StudentLogin");
             }
             ViewBag.id = id;
-            return View(db.Subjects.Where(x => x.Students.Any(y => y.Student_Id == id)).ToList().OrderBy(x => x.semester));
+            return View(Db.Subjects.Where(x => x.Students.Any(y => y.Student_Id == id)).ToList().OrderBy(x => x.semester));
         }
 
         public ActionResult ViewLabs(int? sid, int? id)
@@ -87,8 +87,8 @@ namespace OnlineTermWorkSubmission.Controllers
             }
             ViewBag.id = id;
             ViewBag.sid = sid;
-            ViewBag.subname = db.Subjects.Where(x => x.subject_id == sid).Select(x => x.subject_name).FirstOrDefault();
-            return View(db.Labs.Where(x => x.subject_id == sid).ToList().OrderBy(x => x.lab_no));
+            ViewBag.subname = Db.Subjects.Where(x => x.subject_id == sid).Select(x => x.subject_name).FirstOrDefault();
+            return View(Db.Labs.Where(x => x.subject_id == sid).ToList().OrderBy(x => x.lab_no));
         }
 
         public ActionResult ViewAssignments(int? lid, int? sid, int? id)
@@ -100,8 +100,8 @@ namespace OnlineTermWorkSubmission.Controllers
             ViewBag.id = id;
             ViewBag.sid = sid;
             ViewBag.lid = lid;
-            ViewBag.labno = db.Labs.Where(x => x.lab_id == lid).Select(x => x.lab_no).FirstOrDefault();
-            return View(db.Assignments.Where(x => x.lab_id == lid).ToList());
+            ViewBag.labno = Db.Labs.Where(x => x.lab_id == lid).Select(x => x.lab_no).FirstOrDefault();
+            return View(Db.Assignments.Where(x => x.lab_id == lid).ToList());
         }
 
         [HttpGet]
@@ -136,9 +136,9 @@ namespace OnlineTermWorkSubmission.Controllers
             ViewBag.id = id;
             try
             {
-                var subname = db.Subjects.Where(x => x.subject_id == sid).Select(x => x.subject_name).FirstOrDefault();
-                string labno = db.Labs.Where(x => x.lab_id == lid).Select(x => x.lab_no).FirstOrDefault().ToString();
-                string assignmentno = db.Assignments.Where(x => x.assignment_id == asgId).Select(x => x.assignment_no).FirstOrDefault().ToString();
+                var subname = Db.Subjects.Where(x => x.subject_id == sid).Select(x => x.subject_name).FirstOrDefault();
+                string labno = Db.Labs.Where(x => x.lab_id == lid).Select(x => x.lab_no).FirstOrDefault().ToString();
+                string assignmentno = Db.Assignments.Where(x => x.assignment_id == asgId).Select(x => x.assignment_no).FirstOrDefault().ToString();
 
                 if (file.ContentLength > 0)
                 {
@@ -174,7 +174,7 @@ namespace OnlineTermWorkSubmission.Controllers
 
                     string _path = Path.Combine(assignmentFolder, _FileName);
 
-                    var result = db.Assignments.Where(x => x.assignment_id == asgId).Select(x => x.assignment_enddate).FirstOrDefault();
+                    var result = Db.Assignments.Where(x => x.assignment_id == asgId).Select(x => x.assignment_enddate).FirstOrDefault();
                     
                     if (DateTime.Compare(DateTime.Now, result) < 0)
 
@@ -201,7 +201,7 @@ namespace OnlineTermWorkSubmission.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                Db.Dispose();
             }
             base.Dispose(disposing);
         }
